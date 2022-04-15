@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-//송호진 ㅇㅇ
+
 function App() {
   return (
     <div className="App">
