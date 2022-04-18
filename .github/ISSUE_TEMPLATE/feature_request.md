@@ -1,7 +1,7 @@
 ---
 name: Feature request
 about: Feature Issue template
-title: ''
+title: "[FEAT]"
 labels: ''
 assignees: ''
 
