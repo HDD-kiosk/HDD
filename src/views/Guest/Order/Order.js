@@ -1,9 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import Colors from '../../../styles/Colors'
+
+const Styled = {
+  wrap: styled.div`
+    width: 400px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-contents: flex-start;
+    align-items: center;
+    background-color: ${Colors.LightYellow};
+  `,
+  menuBox: styled.div`
+    width: 140px;
+    height: 129px;
+    background-color: '${Colors.MainYellow}';
+    border-style: 'solid',
+  `,
+  greenBox: styled.div`
+    width: 100px;
+    height: 100px;
+    background-color: green;
+  `,
+};
+
 
 function Order() {
   return (
-    <div>여기는 내가 짜야 하는 Order 컴포넌트</div>
-  )
+    <Styled.wrap>
+      <div> 폰트 적용 완료 </div>
+      <Styled.menuBox>zzffzz</Styled.menuBox>
+    </Styled.wrap>
+  );
 }
 
-export default Order
+export default Order;
