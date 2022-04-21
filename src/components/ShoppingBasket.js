@@ -1,6 +1,7 @@
-import styled from "styled-components";
-import Colors from "../styles/Colors";
-import Imgsrc from "../img/shopping_cart.png";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import Colors from '../styles/Colors';
+import Imgsrc from '../img/shopping_cart.png';
 
 const Wrapper = styled.div`
   position: fixed;
