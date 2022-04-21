@@ -20,7 +20,6 @@ const LogoImg = styled.img`
   max-height: 50px;
   margin-top: 5px;
   margin-left: 23px; /*헤더에 로고이미지 다른사람들과맞춰보기*/
- 
 `;
 
 const Section = styled.div`

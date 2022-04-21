@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import Colors from '../../../styles/Colors';
-import whopperImage from '../../../assets/image-whopper.png'
-import bulgogiWhopperImage from '../../../assets/image-Bulgogi-whopper.png';
-import whopperIcon from '../../../assets/icon-burger.png';
-import QCWhopperImage from '../../../assets/image-QuattroCheeze-whopper.png';
+import whopperImage from '../../../img/image-whopper.png'
+import bulgogiWhopperImage from '../../../img/image-Bulgogi-whopper.png';
+import whopperIcon from '../../../img/icon-burger.png';
+import QCWhopperImage from '../../../img/image-QuattroCheeze-whopper.png';
 
     // ${(props) =>
     //   props.isSelected && //primary 가 존재할 경우
