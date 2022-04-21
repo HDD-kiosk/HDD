@@ -1,0 +1,46 @@
+
+/*  ↓↓↓↓↓↓↓↓Main_guest css 작업물  나중에 지우기↓↓↓↓↓↓↓↓   */
+.App {
+  text-align: center;
+}
+
+.main_guest-bannerImg {
+  width: 95vw;
+  height: 50vh;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.modeButton {
+  width: 290px;
+  height: 150px;
+
+  margin-top: 70px;
+  margin-right: 130px;
+  margin-left : 170px;
+  background-color: #FFCC00;
+  border-radius: 15px;
+  border: none;
+
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 25px;
+  line-height: 41px;
+  color: #FFFFFF;
+  align-items: center;
+  text-align: center;
+
+  /*display: flex;*/
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: column;
+}
+
+.modeBtnImg {
+  display: block;
+  margin-left: 50px;
+  margin-bottom: -15px;
+
+}
+/*  ↑↑↑↑↑↑↑Main_guest css 작업물 나중에지우기 ↑↑↑↑↑↑↑  */
