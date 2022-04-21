@@ -10,11 +10,10 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     font-family: 'Noto Sans CJK KR', Roboto;
-    // color : '${Colors.Black}';
     width: 100vw;
-    min-width: 1440px; // 1440 확인 필요
+    // max-width: 1440px; // ??
     height: 100vh;
-    background-color: '${Colors.White}';
+    background-color: '${Colors.MainYellow}';
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
     &::-webkit-scrollbar {
