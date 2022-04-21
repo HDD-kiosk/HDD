@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import CalTable from "../../components/CalTable";
 
 function Home() {
   return (
-    <div>Home</div>
-  )
+    <div>
+      <CalTable />
+    </div>
+  );
 }
 
-export default Home
+export default Home;
