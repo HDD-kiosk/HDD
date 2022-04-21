@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import styled, { css } from 'styled-components';
-import Colors from '../../../styles/Colors';
-import whopperImage from '../../../assets/image-whopper.png'
-import bulgogiWhopperImage from '../../../assets/image-Bulgogi-whopper.png';
-import whopperIcon from '../../../assets/icon-burger.png';
-import QCWhopperImage from '../../../assets/image-QuattroCheeze-whopper.png';
+import React, { useState, useEffect } from "react";
+import styled, { css } from "styled-components";
+import Colors from "../../../styles/Colors";
+import whopperImage from "../../../img/image-whopper.png";
+import bulgogiWhopperImage from "../../../img/image-Bulgogi-whopper.png";
+import whopperIcon from "../../../img/icon-burger.png";
+import QCWhopperImage from "../../../img/image-QuattroCheeze-whopper.png";
 
-    // ${(props) =>
-    //   props.isSelected && //primary 가 존재할 경우
-    //   css`
-    //     background-color: ${Colors.Red};
-    //     color: black;
-    //   `}
+// ${(props) =>
+//   props.isSelected && //primary 가 존재할 경우
+//   css`
+//     background-color: ${Colors.Red};
+//     color: black;
+//   `}
 
 const Styled = {
   categoryWrap: styled.div`
@@ -28,8 +28,8 @@ const Styled = {
     margin: 0px 0px;
     margin-top: 20px;
     border-radius: 63px 63px 0px 0px;
-
   `,
+
   categoryName: styled.div`
     font-size: 25px;
     font-weight: bold;
@@ -81,20 +81,26 @@ const Styled = {
   `,
 };
 
-const categoryData = ['스페셜&할인팩', '와퍼', '주니어&버거', '사이드', '음료&디저트'];
+const categoryData = [
+  "스페셜&할인팩",
+  "와퍼",
+  "주니어&버거",
+  "사이드",
+  "음료&디저트",
+];
 
 const menuData = [
-  { imageUrl: whopperImage, name: '와퍼', price: 5000 },
-  { imageUrl: bulgogiWhopperImage, name: '불고기 와퍼', price: 6000 },
-  { imageUrl: QCWhopperImage, name: '콰트로치즈 와퍼', price: 7000 },
+  { imageUrl: whopperImage, name: "와퍼", price: 5000 },
+  { imageUrl: bulgogiWhopperImage, name: "불고기 와퍼", price: 6000 },
+  { imageUrl: QCWhopperImage, name: "콰트로치즈 와퍼", price: 7000 },
 
-  { imageUrl: whopperIcon, name: '와퍼퍼', price: 100 },
+  { imageUrl: whopperIcon, name: "와퍼퍼", price: 100 },
 ];
 
 const MenuBox = ({ imageUrl, name, price }) => {
   return (
     <Styled.menuBox>
-      <Styled.menuImage src={imageUrl}/>
+      <Styled.menuImage src={imageUrl} />
       <Styled.menuName>{name}</Styled.menuName>
       <Styled.menuPrice>{price}원</Styled.menuPrice>
     </Styled.menuBox>
@@ -114,22 +120,16 @@ function Order() {
                 <Styled.categoryName>{v}</Styled.categoryName>
               </Styled.categoryBox>
             );
-          })
-        }
+          })}
       </Styled.categoryWrap>
 
       <Styled.menuWrap>
         {menuData &&
           menuData.map((v) => {
             return (
-              <MenuBox
-                imageUrl={v.imageUrl}
-                name={v.name}
-                price={v.price}
-              />
+              <MenuBox imageUrl={v.imageUrl} name={v.name} price={v.price} />
             );
-          })
-        }
+          })}
       </Styled.menuWrap>
     </div>
   );
