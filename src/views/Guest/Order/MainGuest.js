@@ -1,27 +1,66 @@
+import { useState } from 'react';
 import styled from "styled-components";
+import Modal from './Modal.js';
+import Colors from "../../../styles/Colors";
 import comingsoonImg from '../../../img/comingsoon.png';
 import forhereImg from '../../../img/forhere.png';
 import takeoutImg from '../../../img/takeout.png';
-import './MainGuest.css';
-import { useState } from 'react';
-import Modal from './Modal.js';
-
 
 const MainGuestWrap = styled.div`
   text-align: center;
 `;
+const Header = styled.div`
 
-function Header() { // comingsoon banner
-  return (
-    <header>
-      <img src={comingsoonImg} className="main_guest-bannerImg" />
-    </header>
-  );
-}
+`;
+const MainGuestBannerImg = styled.img`
+  width: 95vw;
+  height: 50vh;
+`;
 
-function Nav() {  // 1: 매장  2: 테이크아웃
+const Nav = styled.div`
+ display: flex;
+ justify-content: center;
 
-  //const [mode, setChooseMode] = useState(null);
+`;
+
+const EatingSpaceTypeBtn = styled.div`
+  width: 15rem;
+  height: 9rem;
+  border-radius: 11px;
+  background-color: ${Colors.MainYellow};
+
+  cursor: pointer;
+  margin-top: 4.5rem;
+  
+  & + & {
+    margin-left: 15rem;
+  }
+`;
+
+const EatingSpaceTypeImg = styled.img`
+  margin-top: 1rem;
+`;
+
+const TakeoutImg = styled.img`
+  margin-top: 1.1rem;
+  margin-bottom: 0.5rem;
+  width: 3.8vw;
+  height: 8.8vh;
+
+`;
+
+const EatingSpaceTypeTitle = styled.h3`
+  font-family: "Noto Sans"; /*나중 글로벌스타일 확인*/
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: ${Colors.White};
+  margin-top: 0.5rem;
+`;
+
+const ModalPromptTitle = styled.h3`
+`;
+
+function MainGuest() {
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -31,45 +70,34 @@ function Nav() {  // 1: 매장  2: 테이크아웃
   const closeModal = () => {
     setModalOpen(false);
   };
-
-  const chooseMode = (e) => {
-    //setChooseMode(e.target.id);
-  };
   const modeBtnClick = (e) => {
-    //chooseMode(e.target.id);
     openModal();
   }
-  return (
-    //<button type="button" className='modeButton'  > <img src={forhereImg} className="modeBtn-img" />매장에서 식사</button>
-
-    <nav>
-      <div>
-        <button id={1} type="button" className='modeButton' onClick={modeBtnClick} >
-          <img src={forhereImg} className='modeBtnImg' />
-          <h3>매장에서 식사</h3>
-        </button>
-
-        <button id={2} type="button" className='modeButton' onClick={modeBtnClick}>
-          <img src={takeoutImg} className='modeBtnImg' />
-          <h3>테이크 아웃</h3>
-        </button>
-      </div>
-
-
-      <Modal open={modalOpen} close={closeModal} /*mode={mode}*/ >
-        음성 주문으로 도와드릴까요?
-      </Modal>
-    </nav>
-
-  );
-}
-
-function MainGuest() {
 
   return (
     <MainGuestWrap>
-      <Header></Header>
-      <Nav></Nav>
+
+      <Header>
+        <MainGuestBannerImg src={comingsoonImg} />
+      </Header>
+
+      <Nav>
+        <EatingSpaceTypeBtn onClick={modeBtnClick} >
+          <EatingSpaceTypeImg src={forhereImg} />
+          <EatingSpaceTypeTitle>매장에서 식사 </EatingSpaceTypeTitle>
+        </EatingSpaceTypeBtn>
+
+        <EatingSpaceTypeBtn onClick={modeBtnClick}  >
+          <TakeoutImg src={takeoutImg} />
+          <EatingSpaceTypeTitle>테이크 아웃</EatingSpaceTypeTitle>
+        </EatingSpaceTypeBtn>
+
+        <Modal open={modalOpen} close={closeModal}  >
+          <ModalPromptTitle>음성 주문으로 도와드릴까요?</ModalPromptTitle>
+        </Modal>
+
+      </Nav>
+
     </MainGuestWrap>
   );
 }
