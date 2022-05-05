@@ -7,6 +7,9 @@ import Payment from "../src/views/Guest/Order/Payment";
 import Login from "./views/Login/Login";
 import Signup from "./views/Signup/Signup";
 import Mode from "./views/Mode/Mode";
+import VoiceOrder from "./views/Guest/Order/VoiceOrder";
+import MainGuset from "./views/Guest/Order/MainGuest";
+import Manage from "./views/Manage/Manage";
 function App() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -18,6 +21,10 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/mode" element={<Mode />} />
+          <Route path="/voiceorder" element={<VoiceOrder />} />
+          <Route path="/mainguest" element={<MainGuset />} />
+          <Route path="/Manage" element={<Manage />} />
+
         </Routes>
       </BrowserRouter>
     </Suspense>
