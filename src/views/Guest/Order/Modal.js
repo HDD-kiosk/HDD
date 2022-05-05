@@ -1,3 +1,4 @@
+import React from "react";
 import styled, { keyframes } from "styled-components";
 import micImg from "../../../img/mic.png";
 
@@ -11,7 +12,6 @@ const modalShow = keyframes`
         margin-top: 0;
     }
 `;
-
 const modalBgShow = keyframes`
     from{
         opacity: 0;
@@ -20,7 +20,6 @@ const modalBgShow = keyframes`
         opacity: 1;
     }
 `;
-
 const OpenModal = styled.div`
   position: fixed;
   top: 0;
@@ -32,13 +31,13 @@ const OpenModal = styled.div`
   display: flex;
   align-items: center;
   animation: ${modalBgShow} 0.3s;
+  justify-content: center;
+  width: ${ props=>props.width }
   
 `;
-
 const Section = styled.div`
-  width: 90%;
-  max-width: 346px;
-  margin: 0 auto;
+  /*width: ${ props=>props.width }*/
+  margin:0 auto;
   border-radius: 0.3rem;
   background-color: #FFFFFF;   /* hdd로가서 글로벌로바꾸기*/
   animation: ${modalShow} 0.3s;
@@ -68,25 +67,19 @@ const CloseBtn = styled.button`
   color: #999;
   background-color: transparent;
 `;
-
 const Main = styled.div`
   font-size: 21px; 
   font-weight: bold;
   padding: 16px;
   text-align: center;
 `;
+const HeaderImg = styled.img`
 
-const MicImg = styled.img`
-  
-`
-
+`;
 const Footer = styled.div`
   padding: 12px 16px;
   text-align: center;
 `;
-
-
-
 const YesBtn = styled.button`
   font-weight: bold;
   font-family: 'Noto Sans';
@@ -112,33 +105,24 @@ const NoBtn = styled.button`
 
 `;
 
-const Modal = (props) => { // chooseMode 일단 나중에..
-  const { open, close, chooseMode } = props;
+const Modal = (props) => { 
+  const { open, close, first, second, setWidth, img, btnEvent1, btnEvent2  } = props;
 
-
-  const yesBtnClick = () => {
-     alert(chooseMode);
-     close();
-
-  }
-  const noBtnClick = () => {
-    close();
-  }
   return (        
     <>
       {open ? (
-        <OpenModal>
-          <Section>
+        <OpenModal width={setWidth}>
+          <Section >
             <Header>
               <CloseBtn onClick={close}>&times;</CloseBtn>
-              <MicImg src={micImg} ></MicImg>
+              <HeaderImg src={img} ></HeaderImg>
             </Header>
             <Main>
               {props.children}
             </Main>
             <Footer>
-              <YesBtn onClick={yesBtnClick}>네</YesBtn>
-              <NoBtn onClick={noBtnClick}>아니오</NoBtn>
+              <YesBtn onClick={btnEvent1}>{first}</YesBtn>
+              <NoBtn onClick={btnEvent2}>{second}</NoBtn>
             </Footer>
           </Section>
         </OpenModal>
