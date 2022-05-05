@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Hddlogo from "../../img/hddLogo.png";
+import Hddlogo from "../../img/hddlogo.png";
 import Colors from "../../styles/Colors";
 
 const Container = styled.body`

@@ -88,9 +88,13 @@ const categoryData = [
   "사이드",
   "음료&디저트",
 ];
-
+const menulist = [
+  "와퍼1",
+  "와퍼2",
+  "와퍼3",
+]
 const menuData = [
-  { imageUrl: whopperImage, name: "와퍼", price: 5000 },
+  { imageUrl: whopperImage, name: menulist, price: 5000 },
   { imageUrl: bulgogiWhopperImage, name: "불고기 와퍼", price: 6000 },
   { imageUrl: QCWhopperImage, name: "콰트로치즈 와퍼", price: 7000 },
 

@@ -9,9 +9,10 @@ const Header = styled.div`
   margin-bottom: 15px;
 `;
 const ContentContainer = styled.div`
-  background-color: ${Colors.MainYellow};
-  padding: 9px;
-  border-radius: 10px;
+border-style: solid;
+border-color: ${Colors.MainYellow};
+  border-width: 5px;
+  border-radius: 9px;
 `;
 const Wrapper = styled.div`
   background-color: white;
