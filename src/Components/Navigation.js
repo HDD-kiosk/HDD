@@ -130,7 +130,11 @@ function Navigation() {
       <Button>버거왕</Button>
       
       {firstCheck === true ? <SetContainer><OrderList></OrderList></SetContainer> : secondCheck == true ? <Menu></Menu> : <SetContainer><CalTable></CalTable></SetContainer>}
-
+      
+      
+      
+    
+     
     </div>
 
     /* Rectangle 326 */

@@ -5,6 +5,8 @@ import Colors from "../../../styles/Colors";
 import comingsoonImg from '../../../img/comingsoon.png';
 import forhereImg from '../../../img/forhere.png';
 import takeoutImg from '../../../img/takeout.png';
+import micImg from "../../../img/mic.png";
+import React from "react";
 
 const MainGuestWrap = styled.div`
   text-align: center;
@@ -61,7 +63,6 @@ const ModalPromptTitle = styled.h3`
 `;
 
 function MainGuest() {
-
   const [modalOpen, setModalOpen] = useState(false);
 
   const openModal = () => {
@@ -72,7 +73,14 @@ function MainGuest() {
   };
   const modeBtnClick = (e) => {
     openModal();
-  }
+  };
+  const YesBtnClick = () => {
+    alert("녹");
+  };
+  const NoBtnClick = () => {
+    alert("ㅋ");
+    //closeModal();
+  };
 
   return (
     <MainGuestWrap>
@@ -92,7 +100,7 @@ function MainGuest() {
           <EatingSpaceTypeTitle>테이크 아웃</EatingSpaceTypeTitle>
         </EatingSpaceTypeBtn>
 
-        <Modal open={modalOpen} close={closeModal}  >
+        <Modal open={modalOpen} close={closeModal}  first="네" second="아니오"  setWidth={1000} img={micImg} btnEvent1={YesBtnClick} btnEvent2={NoBtnClick} >
           <ModalPromptTitle>음성 주문으로 도와드릴까요?</ModalPromptTitle>
         </Modal>
 

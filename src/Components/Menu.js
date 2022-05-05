@@ -6,18 +6,23 @@ import whopperImage from '../img/image-whopper.png'
 import bulgogiWhopperImage from '../img/image-Bulgogi-whopper.png';
 import whopperIcon from '../img/icon-burger.png';
 import QCWhopperImage from '../img/image-QuattroCheeze-whopper.png';
+import Modal from '../views/Guest/Order/Modal'
+import InputMenu from "./InputMenu";
+import inputBtnImg from '../img/inputmenubtn.png';
+
 const AddMenu = styled.button`
+  position: absolute;
+  left: 64.12%;
+  right: 21.49%;
+  top: 3.71%;
+  bottom: 89.55%;
 
-position: absolute;
-left: 64.12%;
-right: 21.49%;
-top: 3.71%;
-bottom: 89.55%;
-
-background: #ffcc00;
-border: 9px solid  ${Colors.MainYellow};
-border-radius: 11px;
-color : ${Colors.White}`;
+  background:${Colors.MainYellow};
+  border: 9px solid  ${Colors.MainYellow};
+  border-radius: 11px; 
+  color : ${Colors.White};
+  cursor: pointer;
+`;
 const Special = styled.div`
 
 
@@ -65,7 +70,7 @@ const Text = styled.span`
 `;
 
 const Styled = {
-    menuWrap: styled.div`
+  menuWrap: styled.div`
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -117,48 +122,81 @@ const Styled = {
   `,
 };
 const menuData = [
-    { imageUrl: whopperImage, name: "와퍼", price: 5000 },
-    { imageUrl: bulgogiWhopperImage, name: "불고기 와퍼", price: 6000 },
-    { imageUrl: QCWhopperImage, name: "콰트로치즈 와퍼", price: 7000 },
-  
-    { imageUrl: whopperIcon, name: "와퍼퍼", price: 100 },
-  ];
+  { imageUrl: whopperImage, name: "와퍼", price: 5000 },
+  { imageUrl: bulgogiWhopperImage, name: "불고기 와퍼", price: 6000 },
+  { imageUrl: QCWhopperImage, name: "콰트로치즈 와퍼", price: 7000 },
+  { imageUrl: whopperIcon, name: "와퍼퍼", price: 100 },
+
+];
+
 const MenuBox = ({ imageUrl, name, price }) => {
-    return (
-      <Styled.menuBox>
-        <Styled.menuImage src={imageUrl} />
-        <Styled.menuName>{name}</Styled.menuName>
-        <Styled.menuPrice>{price}원</Styled.menuPrice>
-      </Styled.menuBox>
-    );
+  return (
+    <Styled.menuBox>
+      <Styled.menuImage src={imageUrl} />
+      <Styled.menuName>{name}</Styled.menuName>
+      <Styled.menuPrice>{price}원</Styled.menuPrice>
+    </Styled.menuBox>
+  );
 };
-function Menu(){
-    const[navColor, setNavColor] = useState({
-        specialColor: Colors.MainYellow,
-        burgerColor: Colors.White,
-        juniorColor: Colors.White,
-        sideColor: Colors.White,
-        dessertColor: Colors.White,
-        specialtextColor: Colors.White,
-        burgertextColor: Colors.Black,
-        juniortextColor: Colors.Black,
-        sidetextColor: Colors.Black,
-        desserttextColor: Colors.Black,
-      });
-    const onSpecialClick = () =>
-        setNavColor({
-        specialColor: Colors.MainYellow,
-        burgerColor: Colors.White,
-        juniorColor: Colors.White,
-        sideColor: Colors.White,
-        dessertColor: Colors.White,
-        specialtextColor: Colors.White,
-        burgertextColor: Colors.Black,
-        juniortextColor: Colors.Black,
-        sidetextColor: Colors.Black,
-        desserttextColor: Colors.Black,
+function Menu() {
+  
+  const [modalOpen, setModalOpen] = useState(false);
+  const [menuTitle, setMenuTitle] = useState("");
+  const [menuPrice, setMenuPrice] = useState("");
+  const [menuImg, setMenuImg] = useState(null);
+
+  const [sig, setSig] = useState(false);
+
+  
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+  const addMenuBtnClick = (e) => {
+    openModal();
+  };
+
+  const addBtnOnClick = () => {     // 모달안에 있는 "추가버튼"
+    setSig(true);
+    const menuObj = {  imageUrl:menuImg, name:menuTitle, price:menuPrice, };
+    menuData.push(menuObj);
+    closeModal();
+   
+  };
+
+  const cancleBtnOnClick = () => {
+
+    closeModal();
+  };
+  const [navColor, setNavColor] = useState({
+    specialColor: Colors.MainYellow,
+    burgerColor: Colors.White,
+    juniorColor: Colors.White,
+    sideColor: Colors.White,
+    dessertColor: Colors.White,
+    specialtextColor: Colors.White,
+    burgertextColor: Colors.Black,
+    juniortextColor: Colors.Black,
+    sidetextColor: Colors.Black,
+    desserttextColor: Colors.Black,
+  });
+  const onSpecialClick = () =>
+    setNavColor({
+      specialColor: Colors.MainYellow,
+      burgerColor: Colors.White,
+      juniorColor: Colors.White,
+      sideColor: Colors.White,
+      dessertColor: Colors.White,
+      specialtextColor: Colors.White,
+      burgertextColor: Colors.Black,
+      juniortextColor: Colors.Black,
+      sidetextColor: Colors.Black,
+      desserttextColor: Colors.Black,
     });
-    const onBurgerClick = () =>
+  const onBurgerClick = () =>
     setNavColor({
       specialColor: Colors.White,
       burgerColor: Colors.MainYellow,
@@ -210,57 +248,67 @@ function Menu(){
       sidetextColor: Colors.Black,
       desserttextColor: Colors.White,
     });
-    return(
-        <div>
-         
-             
-          <Special
-            backgroundColor={navColor.specialColor}
-            color={navColor.specialtextColor}
-            onClick={onSpecialClick}
-          >
-            <Text>스페셜 할인팩</Text>
-          </Special>
-          <Burger
-            backgroundColor={navColor.burgerColor}
-            color={navColor.burgertextColor}
-            onClick={onBurgerClick}
-          >
-            <Text>와퍼　</Text>
-          </Burger>
-          <Junior
-            backgroundColor={navColor.juniorColor}
-            color={navColor.juniortextColor}
-            onClick={onJuniorClick}
-          >
-            <Text>주니어</Text>
-          </Junior>
-          <Side
-            backgroundColor={navColor.sideColor}
-            color={navColor.sidetextColor}
-            onClick={onSideClick}
-          >
-            <Text>사이드</Text>
-          </Side>
-          <Dessert
-            backgroundColor={navColor.dessertColor}
-            color={navColor.desserttextColor}
-            onClick={onDessertClick}
-          >
-            <Text>디저트</Text>
-          </Dessert>
-            
-        <Styled.menuWrap>
-            {menuData &&
-              menuData.map((v) => {
-                  return (
-                  <MenuBox imageUrl={v.imageUrl} name={v.name} price={v.price} />
-                  );
-            })}
-        </Styled.menuWrap>
-        <AddMenu>메뉴추가</AddMenu>
-        </div>
-    );
+
+
+  const onAddMenuClick = () => {  // 모달을 실행하기 위한 버튼
+    addMenuBtnClick();
+  }
+
+  return (
+    <div>
+
+      <Special
+        backgroundColor={navColor.specialColor}
+        color={navColor.specialtextColor}
+        onClick={onSpecialClick}
+      >
+        <Text>스페셜 할인팩</Text>
+      </Special>
+      <Burger
+        backgroundColor={navColor.burgerColor}
+        color={navColor.burgertextColor}
+        onClick={onBurgerClick}
+      >
+        <Text>와퍼　</Text>
+      </Burger>
+      <Junior
+        backgroundColor={navColor.juniorColor}
+        color={navColor.juniortextColor}
+        onClick={onJuniorClick}
+      >
+        <Text>주니어</Text>
+      </Junior>
+      <Side
+        backgroundColor={navColor.sideColor}
+        color={navColor.sidetextColor}
+        onClick={onSideClick}
+      >
+        <Text>사이드</Text>
+      </Side>
+      <Dessert
+        backgroundColor={navColor.dessertColor}
+        color={navColor.desserttextColor}
+        onClick={onDessertClick}
+      >
+        <Text>디저트</Text>
+      </Dessert>
+
+      <Styled.menuWrap>
+        {menuData &&
+          menuData.map((v) => {
+            return (
+              <MenuBox key={v.name} imageUrl={v.imageUrl} name={v.name} price={v.price}  />
+            );
+          })}
+      </Styled.menuWrap>
+      <AddMenu onClick={onAddMenuClick}>메뉴추가
+      </AddMenu>
+
+      <Modal open={modalOpen} close={closeModal} first="취소" second="추가" setWidth={500}  img={null} btnEvent1={cancleBtnOnClick} btnEvent2= {addBtnOnClick} >
+         <InputMenu signal={sig} setMenuTitle={setMenuTitle} setMenuPrice={setMenuPrice} setMenuImg={setMenuImg}></InputMenu> 
+      </Modal>
+    </div>
+  );
 
 
 }
