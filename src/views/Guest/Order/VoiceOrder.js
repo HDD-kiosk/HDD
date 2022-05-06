@@ -20,7 +20,7 @@ const VoiceOrderWrap = styled.div`
 const Header = styled.div`
 `;
 const TextLabel = styled.p`
-   color: red;
+  color: red;
 `;
 const SttBtn = styled.div`
   width: 50px;
