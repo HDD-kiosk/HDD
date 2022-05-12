@@ -8,7 +8,7 @@ const MenuWrap = styled.div`
   flex-wrap: wrap;
   align-items: center;
   background-color: ${Colors.White};
-  
+
   border-radius: 9px;
   border-style: solid;
   border-width: 5px;
@@ -116,7 +116,7 @@ function OrderList() {
       { number: "444", name: "치즈와퍼", amount: "3" },
       { number: "555", name: "치즈와퍼", amount: "3" },
     ];
-    setList(orderData);``
+    setList(orderData)
     if (orderData.length == 0) {
       setEmpty(true);
     } else {

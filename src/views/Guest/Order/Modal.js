@@ -129,9 +129,7 @@ const Modal = (props) => {
             <Main>{props.children}</Main>
             <Footer>
               <FirstBtn onClick={btnEvent1}>{first}</FirstBtn>
-              <Link to={movePage}>
-                <SecondBtn onClick={btnEvent2}>{second}</SecondBtn>
-              </Link>
+              <SecondBtn onClick={btnEvent2}>{second}</SecondBtn>
             </Footer>
           </Section>
         </OpenModal>
