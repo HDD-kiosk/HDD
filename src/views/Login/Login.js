@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import Hddlogo from "../../img/hddlogo.png";
 import Loopy from "../../img/loopy.png";
 import Google from "../../img/googlelogo.png";
 import Colors from "../../styles/Colors";
+import { authService } from "../../firebase";
+import Findpw from "./Findpw";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 const Container = styled.body`
   position: relative;
@@ -72,9 +77,9 @@ const IntArea = styled.div`
   margin-top: 20px;
 `;
 const IdInput = styled.input.attrs({
-  type: "text",
-  name: "id",
-  id: "id",
+  type: "email",
+  name: "email",
+  id: "email",
   autocomplete: "off",
 })`
   width: 100%;
@@ -104,8 +109,8 @@ const IdLabel = styled.label.attrs({ for: "id" })`
 
 const PwInput = styled.input.attrs({
   type: "password",
-  name: "pw",
-  id: "pw",
+  name: "password",
+  id: "password",
   autocomplete: "off",
 })`
   width: 100%;
@@ -168,8 +173,11 @@ const LoginButton = styled.button.attrs({ type: "submit" })`
 const GoogleLoginArea = styled.div`
   text-align: center;
 `;
-const GoogleLoginButton = styled.button.attrs({ type: "submit" })`
-  width: 30%;
+const GoogleLoginButton = styled.button.attrs({
+  type: "submit",
+  name: "google",
+})`
+  width: 40%;
   height: 30px;
   background: white;
   font-size: 10px;
@@ -186,12 +194,63 @@ const ImgGoogle = styled.img.attrs((props) => ({
 `;
 
 function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const onChange = (event) => {
+    const {
+      target: { name, value },
+    } = event;
+
+    if (name === "email") {
+      setEmail(value);
+    } else if (name === "password") {
+      setPassword(value);
+    }
+  };
+  const onSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const data = await signInWithEmailAndPassword(
+        authService,
+        email,
+        password
+      );
+    } catch (error) {
+      alert("로그인 정보가 틀렸습니다.");
+    }
+  };
+  const onSocialClick = async (event) => {
+    const {
+      target: { name },
+    } = event;
+    let provider;
+    if (name === "google") {
+      provider = new GoogleAuthProvider();
+    }
+    await signInWithPopup(authService, provider);
+  };
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+  const modeBtnClick = (e) => {
+    openModal();
+  };
+
   return (
     <Container>
       <TopBar>
         <Imglogo></Imglogo>
         <Sign>
-          <SignButton>회원가입</SignButton>
+          <SignButton onClick={modeBtnClick}>비밀번호 재설정</SignButton>
+          <Link to="/signup">
+            <SignButton>회원가입</SignButton>
+          </Link>
         </Sign>
       </TopBar>
       <Advertise>
@@ -202,22 +261,18 @@ function Login() {
           <LoginText>로그인</LoginText>
         </LoginTextForm>
         <Form>
-          <RealForm>
+          <RealForm onSubmit={onSubmit}>
             <IntArea>
-              <IdInput required></IdInput>
-              <IdLabel>아이디를 입력해주세요.</IdLabel>
+              <IdInput required value={email} onChange={onChange}></IdInput>
+              <IdLabel>이메일을 입력해주세요.</IdLabel>
             </IntArea>
             <IntArea>
-              <PwInput required></PwInput>
+              <PwInput required value={password} onChange={onChange}></PwInput>
               <PwLabel>비밀번호를 입력해주세요.</PwLabel>
             </IntArea>
             <Option>
               <OptionTwo>
                 <CheckboxInput></CheckboxInput>자동로그인
-                <Caption>
-                  <CaptionA>아이디 찾기 </CaptionA> |{" "}
-                  <CaptionA>비밀번호 변경</CaptionA>
-                </Caption>
               </OptionTwo>
             </Option>
             <BtnArea>
@@ -226,11 +281,12 @@ function Login() {
           </RealForm>
         </Form>
         <GoogleLoginArea>
-          <GoogleLoginButton>
+          <GoogleLoginButton onClick={onSocialClick}>
             <ImgGoogle></ImgGoogle> 구글로 계속하기
           </GoogleLoginButton>
         </GoogleLoginArea>
       </LoginForm>
+      <Findpw open={modalOpen} close={closeModal} setWidth={1000}></Findpw>
     </Container>
   );
 }

@@ -1,27 +1,14 @@
-import fs from "fs";
 import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import axios from 'axios';
 import AudioRecord from "../../../components/AudioRecord";
-import AudioFile from "../../../img/heykakao.wav";
-
-const KAKAO_STT_URL = 'https://kakaoi-newtone-openapi.kakao.com/v1/recognize';
 const KAKAO_TTS_URL = 'https://kakaoi-newtone-openapi.kakao.com/v1/synthesize';
 const REST_API_KEY = '9063332fecca3b9e512ce29c057add84';
 
-//네이버API
-const clientId = 'nbnxyzypfz';
-const clientSecret = 'kIVzb8bR8rRTt6DqU4Bo3WpRwtEDwKa45Me4f4fQ';
-
-
 const VoiceOrderWrap = styled.div`
 `;
-const Header = styled.div`
-`;
-const TextLabel = styled.p`
-   color: red;
-`;
+
 const SttBtn = styled.div`
   width: 50px;
   height: 50px;
@@ -40,20 +27,15 @@ const TtsBtn = styled.div`
   cursor: pointer;
 `;
 
-
-
 function VoiceOrder() {
   const [audioData, setAudioData] = useState(null);
-
-  //const fs = require('AudioFile');
-  //const fs = require('fs');
-  //fs.createReadStream('../../../img/heykakao.wav');
+  let STT_TEXT = null;
 
 
-  function voicePlay(audioData) {
+  function voicePlay(responseAudioData) {
     const context = new AudioContext();
 
-    context.decodeAudioData(audioData, buffer => {
+    context.decodeAudioData(responseAudioData, buffer => {
       const source = context.createBufferSource();
       source.buffer = buffer;
       source.connect(context.destination);
@@ -61,63 +43,18 @@ function VoiceOrder() {
     });
   }
 
-  ///////////////////////////////////////////////////////////////
+  const sttBtnClick = (soundFile,e) => {
+    console.log('사운드파일은?', soundFile);
+    // "soundFile"을 디비로 보낸다
+    // 서버에서 STT API를 호출한다 
+    //  STT API 결과 값을 가져온다
+    //STT_TEXT = 서버에서 뿌려주는 텍스트 값;
+
  
-  const request = require('request');
-  
-  // language => 언어 코드 ( Kor, Jpn, Eng, Chn )
-  function stt(language, filePath) {
-      const url = `https://naveropenapi.apigw-pub.fin-ntruss.com/recog/v1/stt?lang=${language}`;
-      const requestConfig = {
-          url: url,
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/octet-stream',
-              'X-NCP-APIGW-API-KEY-ID': clientId,
-              'X-NCP-APIGW-API-KEY': clientSecret
-          },
-          body: fs.createReadStream(filePath)
-      };
-  
-      request(requestConfig, (err, response, body) => {
-          if (err) {
-              console.log(err);
-              return;
-          }
-  
-          console.log(response.statusCode);
-          console.log(body);
-      });
-  }
-  
-  
-////////////////////////////////////////////////////////////////////
-
-
-  const sttBtnClick = (e) => {
-
-    //console.log('stt보이스오더',audioData);
-
-    // axios.post(KAKAO_STT_URL, AudioFile, {
-    //   headers: {
-    //     //'Content-Type': 'application/octet-stream',
-    //     //Authorization: `KakaoAK ${REST_API_KEY}`,
-
-    //     'Content-Type': 'application/octet-stream',
-    //     Authorization: `KaKaoAK ${REST_API_KEY}`,
-    //   }
-    // }).then((response) => {
-    //   console.log(response);
-    // });
-    /////////////////////////////////////////////////////////////////////////////
-
-
-    stt('Kor', '../../../img/heykakao.wav');
-
   };
 
   const ttsBtnClick = (e) => {
-    const xmlData = '<speak>테스트</speak>'; // 여기에 STT를 넣으면 성공 const조심?
+    const xmlData = `<speak>${STT_TEXT}</speak>`; // 여기에 STT를 넣으면 성공
 
     axios.post(KAKAO_TTS_URL, xmlData, {
 
@@ -135,17 +72,8 @@ function VoiceOrder() {
 
   return (
     <VoiceOrderWrap>
-      <Header>
-        <TextLabel>aa</TextLabel>
-      </Header>
-
-      <AudioRecord setAudioData={setAudioData}  > </AudioRecord>
-
-      <SttBtn onClick={sttBtnClick} >STT버튼이다</SttBtn>
-      <TtsBtn onClick={ttsBtnClick} >TTS버튼이다</TtsBtn>
-
+      <AudioRecord setAudioData={setAudioData} ttsBtnClick={ttsBtnClick} sttBtnClick={sttBtnClick}></AudioRecord>
     </VoiceOrderWrap>
   );
 }
-
 export default VoiceOrder;

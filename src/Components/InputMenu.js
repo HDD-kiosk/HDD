@@ -9,7 +9,6 @@ const Section = styled.div`
 const SectionTitle = styled.h3`
 `;
 const SectionContext = styled.input.attrs(props => ({
-  // 고정적인 Props를 전달할 수 있습니다.
   type: "text",
 }))`
 `;
@@ -81,7 +80,6 @@ const InputMenu = (props) => {
     setPrice(val);
   }
 
-  const menuObj= [{ value: "apple", name: "사과" }];
 
   const CategorySelectBox = (props) => {
 
@@ -108,7 +106,6 @@ const InputMenu = (props) => {
 
     const handleImageChange = (e) => {
       const nowSelectImageList = e.target.files;
-      const nowImageURLList = [...myImage];
 
       const nowImageUrl = URL.createObjectURL(nowSelectImageList[0]);
       console.log(nowImageUrl);

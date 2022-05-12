@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import Hddlogo from "../../img/hddlogo.png";
+import { authService } from "../../firebase";
+import Hddlogo from "../../img/hddlgogo.png";
 import Colors from "../../styles/Colors";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  RecaptchaVerifier,
+  signInWithPhoneNumber,
+} from "firebase/auth";
+import { async } from "@firebase/util";
+import firebase from "firebase/app";
 
 const Container = styled.body`
   position: relative;
@@ -66,9 +76,9 @@ const NameInput = styled.input.attrs({
 `;
 
 const IdInput = styled.input.attrs({
-  type: "id",
-  name: "id",
-  id: "id",
+  type: "email",
+  name: "email",
+  id: "email",
   autocomplete: "off",
 })`
   width: 100%;
@@ -116,8 +126,8 @@ const AuthInput = styled.input.attrs({
 
 const PasswordInput = styled.input.attrs({
   type: "password",
-  name: "pw",
-  id: "pw",
+  name: "password",
+  id: "password",
   autocomplete: "off",
 })`
   width: 100%;
@@ -165,6 +175,55 @@ const Flowbtn = styled.button.attrs({
 `;
 
 function Signup() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  //const [phoneValue, setPhoneValue] = useState("");
+  const onChange = (event) => {
+    const {
+      target: { name, value },
+    } = event;
+
+    if (name === "email") {
+      setEmail(value);
+    } else if (name === "password") {
+      setPassword(value);
+    }
+  };
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    const data = await createUserWithEmailAndPassword(
+      authService,
+      email,
+      password
+    );
+  };
+  /*const phoneAuth = (event) => {
+    const auth = getAuth();
+    let recaptchaVerifier;
+    recaptchaVerifier = new RecaptchaVerifier(
+      "recaptcha-container",
+      {
+        size: "normal",
+        callback: (response) => {
+          // reCAPTCHA solved, allow signInWithPhoneNumber.
+          // ...
+        },
+        "expired-callback": () => {
+          // Response expired. Ask user to solve reCAPTCHA again.
+          // ...
+        },
+      },
+      auth
+    );
+    authService.languageCode = "ko";
+    signInWithPhoneNumber("+82" + phoneValue, window.recaptchaVerifier)
+      .then((confirmationResult) => {
+        alert("인증요청");
+        window.confirmationResult = confirmationResult;
+      })
+      .catch((error) => {});
+  };*/
+
   return (
     <Container>
       <TopBar>
@@ -175,14 +234,14 @@ function Signup() {
           <RLogintText>회원가입</RLogintText>
         </LoginText>
         <Form>
-          <RealForm>
+          <RealForm onSubmit={onSubmit}>
             <IntArea>
               이름<br></br>
               <NameInput required></NameInput>
             </IntArea>
             <IntArea>
-              아이디<br></br>
-              <IdInput required></IdInput>
+              이메일<br></br>
+              <IdInput required value={email} onChange={onChange}></IdInput>
             </IntArea>
             <IntArea>
               전화번호<br></br>
@@ -193,7 +252,11 @@ function Signup() {
             </IntArea>
             <IntArea>
               비밀번호<br></br>
-              <PasswordInput></PasswordInput>
+              <PasswordInput
+                required
+                value={password}
+                onChange={onChange}
+              ></PasswordInput>
               <HSIXCAPTION>8~16자 이내, 영문과 숫자,특수문자 조합</HSIXCAPTION>
             </IntArea>
             <IntArea>

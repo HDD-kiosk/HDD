@@ -1,4 +1,31 @@
 import React, { useState, useCallback } from "react";
+import Colors from '../styles/Colors';
+import styled from "styled-components";
+
+const RecAudioBtn = styled.button`
+  font-weight: bold;
+  font-family: 'Noto Sans';
+  background-color: ${Colors.MainYellow};
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 80px;
+  height: 45px;
+  margin-right: 20px;
+`;
+const SubmitAudioFileBtn = styled.button`
+  font-weight: bold;
+  font-family: 'Noto Sans';
+  background-color: ${Colors.MainYellow};
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 80px;
+  height: 45px;
+
+`;
 
 const AudioRecord = (props) => {
   const [stream, setStream] = useState();
@@ -7,7 +34,9 @@ const AudioRecord = (props) => {
   const [source, setSource] = useState();
   const [analyser, setAnalyser] = useState();
   const [audioUrl, setAudioUrl] = useState();
+  const [recordText, setRecordText] = useState("주문시작");
 
+  let soundFile = null;
 
   const onRecAudio = () => {
     // 음원정보를 담은 노드를 생성하거나 음원을 실행또는 디코딩 시키는 일을 한다
@@ -48,6 +77,7 @@ const AudioRecord = (props) => {
           };
         } else {
           setOnRec(false);
+          setRecordText("주문완료");
         }
       };
     });
@@ -62,7 +92,8 @@ const AudioRecord = (props) => {
       props.setAudioData(e.data);
 
       setOnRec(true);
-      console.log('오디오레코드js',e.data);
+      setRecordText("주문시작");
+      console.log('오디오레코드js', e.data);
     };
 
     // 모든 트랙에서 stop()을 호출해 오디오 스트림을 정지
@@ -82,15 +113,20 @@ const AudioRecord = (props) => {
       console.log(URL.createObjectURL(audioUrl)); // 출력된 링크에서 녹음된 오디오 확인 가능
     }
     // File 생성자를 사용해 파일로 변환
-    const sound = new File([audioUrl], "soundBlob", { lastModified: new Date().getTime(), type: "audio/wav" });
+    soundFile = new File([audioUrl], "soundBlob", { lastModified: new Date().getTime(), type: "audio/wav" });
+    props.sttBtnClick(soundFile);
+    props.ttsBtnClick();
+   //asdasdasd 
 
-    console.log("오디오파일사운드".sound); // File 정보 출력
+
+
   }, [audioUrl]);
 
+  
   return (
     <div>
-      <button onClick={onRec ? onRecAudio : offRecAudio}>녹음</button>
-      <button onClick={onSubmitAudioFile}>결과 확인</button>
+      <RecAudioBtn onClick={onRec ? onRecAudio : offRecAudio}>{recordText}</RecAudioBtn>
+      <SubmitAudioFileBtn onClick={onSubmitAudioFile}>주문 확인</SubmitAudioFileBtn>
     </div>
   );
 };

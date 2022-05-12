@@ -8,7 +8,6 @@ import whopperIcon from '../img/icon-burger.png';
 import QCWhopperImage from '../img/image-QuattroCheeze-whopper.png';
 import Modal from '../views/Guest/Order/Modal'
 import InputMenu from "./InputMenu";
-import inputBtnImg from '../img/inputmenubtn.png';
 
 const AddMenu = styled.button`
   position: absolute;
@@ -304,7 +303,7 @@ function Menu() {
       <AddMenu onClick={onAddMenuClick}>메뉴추가
       </AddMenu>
 
-      <Modal open={modalOpen} close={closeModal} first="취소" second="추가" setWidth={500}  img={null} btnEvent1={cancleBtnOnClick} btnEvent2= {addBtnOnClick} >
+      <Modal open={modalOpen} close={closeModal} first="취소" second="추가" setWidth={400}  img={null} btnEvent1={cancleBtnOnClick} btnEvent2= {addBtnOnClick} movePage={""}>
          <InputMenu signal={sig} setMenuTitle={setMenuTitle} setMenuPrice={setMenuPrice} setMenuImg={setMenuImg}></InputMenu> 
       </Modal>
     </div>
