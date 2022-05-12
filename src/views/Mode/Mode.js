@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Hddlogo from "../../img/hddLogo.png";
 import Colors from "../../styles/Colors";
@@ -12,6 +13,7 @@ import {
   onSnapshot,
   orderBy,
 } from "firebase/firestore";
+
 const Container = styled.body`
   position: relative;
 `;
@@ -100,16 +102,20 @@ function Mode({ userObj }) {
         <SelectText>선택해주세요</SelectText>
       </TitleArea>
       <LbtnArea>
-        <Lbtn>
-          <SelectTextF>손님이에요!</SelectTextF>
-          <SelectText>주문하기</SelectText>
-        </Lbtn>
+        <Link to="/mainguest">
+          <Lbtn>
+            <SelectTextF>손님이에요!</SelectTextF>
+            <SelectText>주문하기</SelectText>
+          </Lbtn>
+        </Link>
       </LbtnArea>
       <RbtnArea>
-        <Rbtn>
-          <SelectTextF>가게 사장님이에요!</SelectTextF>
-          <SelectText>매장관리</SelectText>
-        </Rbtn>
+        <Link to="/manage">
+          <Rbtn>
+            <SelectTextF>가게 사장님이에요!</SelectTextF>
+            <SelectText>매장관리</SelectText>
+          </Rbtn>
+        </Link>
       </RbtnArea>
     </Container>
   );
