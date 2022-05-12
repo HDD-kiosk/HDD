@@ -177,7 +177,9 @@ const Flowbtn = styled.button.attrs({
 function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  //const [phoneValue, setPhoneValue] = useState("");
+  const auth = getAuth();
+  auth.languageCode = "ko";
+  const [phoneValue, setPhoneValue] = useState("");
   const onChange = (event) => {
     const {
       target: { name, value },
@@ -197,24 +199,10 @@ function Signup() {
       password
     );
   };
+
   /*const phoneAuth = (event) => {
     const auth = getAuth();
-    let recaptchaVerifier;
-    recaptchaVerifier = new RecaptchaVerifier(
-      "recaptcha-container",
-      {
-        size: "normal",
-        callback: (response) => {
-          // reCAPTCHA solved, allow signInWithPhoneNumber.
-          // ...
-        },
-        "expired-callback": () => {
-          // Response expired. Ask user to solve reCAPTCHA again.
-          // ...
-        },
-      },
-      auth
-    );
+
     authService.languageCode = "ko";
     signInWithPhoneNumber("+82" + phoneValue, window.recaptchaVerifier)
       .then((confirmationResult) => {
@@ -246,7 +234,7 @@ function Signup() {
             <IntArea>
               전화번호<br></br>
               <PhoneArea>
-                <PhoneInput required></PhoneInput>
+                <PhoneInput></PhoneInput>
                 <AuthInput></AuthInput>
               </PhoneArea>
             </IntArea>
