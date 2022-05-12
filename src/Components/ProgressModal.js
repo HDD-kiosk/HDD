@@ -80,33 +80,9 @@ const Footer = styled.div`
   padding: 12px 16px;
   text-align: center;
 `;
-const FirstBtn = styled.button`
-  font-weight: bold;
-  font-family: 'Noto Sans';
-  background-color: #FFCC00;   /* hdd로가서 글로벌로바꾸기*/
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  width: 70px;
-  height: 45px;
-  margin-right: 20px;
-`;
-const SecondBtn = styled.button`
-  font-weight: bold;
-  font-family: 'Noto Sans';
-  background-color: #FFCC00;    /* hdd로가서 글로벌로바꾸기*/
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  width: 70px;
-  height: 45px;
 
-`;
-
-const Modal = (props) => { 
-  const { open, close, first, second, setWidth, img, btnEvent1, btnEvent2, movePage  } = props;
+const ProgressModal = (props) => { 
+  const { open, close, setWidth, img,  } = props;
 
   return (        
     <>
@@ -118,11 +94,10 @@ const Modal = (props) => {
               <HeaderImg src={img} ></HeaderImg>
             </Header>
             <Main>
-              {props.children}
+              {props.children[0]}
             </Main>
             <Footer>
-              <FirstBtn onClick={btnEvent1}>{first}</FirstBtn>
-              <Link to={movePage}><SecondBtn onClick={btnEvent2}>{second}</SecondBtn></Link>
+            {props.children[1]}
             </Footer>
           </Section>
         </OpenModal>
@@ -131,4 +106,4 @@ const Modal = (props) => {
   );
 };
 
-export default Modal;
+export default ProgressModal;

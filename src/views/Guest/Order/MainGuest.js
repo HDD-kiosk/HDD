@@ -6,13 +6,13 @@ import comingsoonImg from '../../../img/comingsoon.png';
 import forhereImg from '../../../img/forhere.png';
 import takeoutImg from '../../../img/takeout.png';
 import micImg from "../../../img/mic.png";
-import React from "react";
+import React, {useRef} from "react";
+import ProgressVoice from '../../../components/ProgressVoice';
 
 const MainGuestWrap = styled.div`
   text-align: center;
 `;
 const Header = styled.div`
-
 `;
 const MainGuestBannerImg = styled.img`
   width: 95vw;
@@ -65,21 +65,24 @@ const ModalPromptTitle = styled.h3`
 function MainGuest() {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const openModal = () => {
+  const ProgressVoiceRef = useRef();
+
+  const openModal = () => { //음성진행 여부 안내모달
     setModalOpen(true);
   };
-  const closeModal = () => {
+  const closeModal = () => {//음성진행 여부 안내모달 
     setModalOpen(false);
   };
   const modeBtnClick = (e) => {
     openModal();
   };
   const YesBtnClick = () => {
-    alert("녹");
+    closeModal();
+    ProgressVoiceRef.current.openModal();
+
   };
   const NoBtnClick = () => {
-    alert("ㅋ");
-    //closeModal();
+    closeModal();
   };
 
   return (
@@ -100,10 +103,10 @@ function MainGuest() {
           <EatingSpaceTypeTitle>테이크 아웃</EatingSpaceTypeTitle>
         </EatingSpaceTypeBtn>
 
-        <Modal open={modalOpen} close={closeModal}  first="네" second="아니오"  setWidth={1000} img={micImg} btnEvent1={YesBtnClick} btnEvent2={NoBtnClick} >
+        <Modal open={modalOpen} close={closeModal}  first="네" second="아니오"  setWidth={380} img={micImg} btnEvent1={YesBtnClick} btnEvent2={NoBtnClick} movePage={"/order"}>
           <ModalPromptTitle>음성 주문으로 도와드릴까요?</ModalPromptTitle>
         </Modal>
-
+         <ProgressVoice ref={ProgressVoiceRef} ></ProgressVoice> 
       </Nav>
 
     </MainGuestWrap>
