@@ -8,7 +8,7 @@ import Login from "./views/Login/Login";
 import Signup from "./views/Signup/Signup";
 import Mode from "./views/Mode/Mode";
 import VoiceOrder from "./views/Guest/Order/VoiceOrder";
-import MainGuset from "./views/Guest/Order/MainGuest";
+import MainGuest from "./views/Guest/Order/MainGuest";
 import Manage from "./views/Manage/Manage";
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/mode" element={<Mode />} />
           <Route path="/voiceorder" element={<VoiceOrder />} />
-          <Route path="/mainguest" element={<MainGuset />} />
+          <Route path="/mainguest" element={<MainGuest />} />
           <Route path="/Manage" element={<Manage />} />
 
         </Routes>

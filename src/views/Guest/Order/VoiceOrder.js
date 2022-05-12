@@ -4,7 +4,6 @@ import { useState } from "react";
 import styled from "styled-components";
 import axios from 'axios';
 import AudioRecord from "../../../components/AudioRecord";
-import AudioFile from "../../../img/heykakao.wav";
 
 const KAKAO_STT_URL = 'https://kakaoi-newtone-openapi.kakao.com/v1/recognize';
 const KAKAO_TTS_URL = 'https://kakaoi-newtone-openapi.kakao.com/v1/synthesize';

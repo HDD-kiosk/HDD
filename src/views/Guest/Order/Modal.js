@@ -6,7 +6,7 @@ const modalShow = keyframes`
     from{
         opacity: 0;
         margin-top: -50px;
-    }cc
+    }
     to{
         opacity: 1;
         margin-top: 0;
@@ -32,11 +32,10 @@ const OpenModal = styled.div`
   align-items: center;
   animation: ${modalBgShow} 0.3s;
   justify-content: center;
-  width: ${ props=>props.width }
-  
+  width: ${(props) => props.width};
 `;
 const Section = styled.div`
-  /*width: ${ props=>props.width }*/
+  /*width: ${(props) => props.width}*/
   margin:0 auto;
   border-radius: 0.3rem;
   background-color: #FFFFFF;   /* hdd로가서 글로벌로바꾸기*/
@@ -47,11 +46,10 @@ const Section = styled.div`
 const Header = styled.div`
   position: relative;
   padding: 16px 64px 16px 16px;
-  background-color: #FFFFFF; /* hdd로가서 글로벌로바꾸기*/
+  background-color: #ffffff; /* hdd로가서 글로벌로바꾸기*/
   font-weight: 700;
   text-align: center;
   padding-left: 50px;
-
 `;
 const CloseBtn = styled.button`
   outline: none;
@@ -68,13 +66,14 @@ const CloseBtn = styled.button`
   background-color: transparent;
 `;
 const Main = styled.div`
-  font-size: 21px; 
+  font-size: 21px;
   font-weight: bold;
   padding: 16px;
   text-align: center;
 `;
 const HeaderImg = styled.img`
-
+  width: ${(props) => props.w}px;
+  height: ${(props) => props.h}px;
 `;
 const Footer = styled.div`
   padding: 12px 16px;
@@ -82,8 +81,8 @@ const Footer = styled.div`
 `;
 const YesBtn = styled.button`
   font-weight: bold;
-  font-family: 'Noto Sans';
-  background-color: #FFCC00;   /* hdd로가서 글로벌로바꾸기*/
+  font-family: "Noto Sans";
+  background-color: #ffcc00; /* hdd로가서 글로벌로바꾸기*/
   color: white;
   border: none;
   border-radius: 8px;
@@ -94,32 +93,40 @@ const YesBtn = styled.button`
 `;
 const NoBtn = styled.button`
   font-weight: bold;
-  font-family: 'Noto Sans';
-  background-color: #FFCC00;    /* hdd로가서 글로벌로바꾸기*/
+  font-family: "Noto Sans";
+  background-color: #ffcc00; /* hdd로가서 글로벌로바꾸기*/
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   width: 70px;
   height: 45px;
-
 `;
 
-const Modal = (props) => { 
-  const { open, close, first, second, setWidth, img, btnEvent1, btnEvent2  } = props;
+const Modal = (props) => {
+  const {
+    open,
+    close,
+    first,
+    second,
+    setWidth,
+    img,
+    btnEvent1,
+    btnEvent2,
+    w,
+    h,
+  } = props;
 
-  return (        
+  return (
     <>
       {open ? (
         <OpenModal width={setWidth}>
-          <Section >
+          <Section>
             <Header>
               <CloseBtn onClick={close}>&times;</CloseBtn>
-              <HeaderImg src={img} ></HeaderImg>
+              <HeaderImg src={img} w={props.w} h={props.h}></HeaderImg>
             </Header>
-            <Main>
-              {props.children}
-            </Main>
+            <Main>{props.children}</Main>
             <Footer>
               <YesBtn onClick={btnEvent1}>{first}</YesBtn>
               <NoBtn onClick={btnEvent2}>{second}</NoBtn>
