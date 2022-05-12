@@ -116,11 +116,13 @@ const AudioRecord = (props) => {
     soundFile = new File([audioUrl], "soundBlob", { lastModified: new Date().getTime(), type: "audio/wav" });
     props.sttBtnClick(soundFile);
     props.ttsBtnClick();
+   //asdasdasd 
 
 
 
   }, [audioUrl]);
 
+  
   return (
     <div>
       <RecAudioBtn onClick={onRec ? onRecAudio : offRecAudio}>{recordText}</RecAudioBtn>
