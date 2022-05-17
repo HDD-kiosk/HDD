@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { authService } from "../../firebase";
 import Hddlogo from "../../img/hddLogo.png";
@@ -99,7 +99,7 @@ const PhoneInput = styled.input.attrs({
   id: "phone",
   autocomplete: "off",
 })`
-  width: 69%;
+  width: 100%;
   padding: 20px 10px 10px 20px;
   background-color: transparent;
   border: none;
@@ -150,9 +150,7 @@ const HFIVECAPTION = styled.h5`
   margin-top: 20px;
 `;
 
-const Alink = styled.a.attrs({
-  href: "",
-})`
+const Alink = styled.span`
   color: purple;
   text-decoration-line: underline;
 `;
@@ -180,6 +178,7 @@ function Signup() {
   const auth = getAuth();
   auth.languageCode = "ko";
   const [phoneValue, setPhoneValue] = useState("");
+  const navigate = useNavigate();
   const onChange = (event) => {
     const {
       target: { name, value },
@@ -198,6 +197,8 @@ function Signup() {
       email,
       password
     );
+    authService.signOut();
+    navigate("/");
   };
 
   /*const phoneAuth = (event) => {
@@ -235,7 +236,6 @@ function Signup() {
               전화번호<br></br>
               <PhoneArea>
                 <PhoneInput></PhoneInput>
-                <AuthInput></AuthInput>
               </PhoneArea>
             </IntArea>
             <IntArea>
@@ -261,7 +261,11 @@ function Signup() {
               </HFIVECAPTION>
 
               <HFIVECAPTION>
-                계정이 이미 있다면 <Alink>로그인</Alink> 하러가기
+                계정이 이미 있다면{" "}
+                <Link to="/">
+                  <Alink>로그인</Alink>
+                </Link>{" "}
+                하러가기
               </HFIVECAPTION>
             </IntArea>
           </RealForm>

@@ -7,7 +7,7 @@ const modalShow = keyframes`
     from{
         opacity: 0;
         margin-top: -50px;
-    }cc
+    }
     to{
         opacity: 1;
         margin-top: 0;
@@ -38,14 +38,14 @@ const OpenModal = styled.div`
 `;
 
 const Section = styled.div`
-  width: ${(props) => props.width}
-  margin:0 auto;
+  width: ${(props) => props.width};
+  margin: 0 auto;
   border-radius: 0.3rem;
-  background-color: #FFFFFF;   /* hdd로가서 글로벌로바꾸기*/
+  background-color: #ffffff; /* hdd로가서 글로벌로바꾸기*/
   animation: ${modalShow} 0.3s;
   overflow: hidden;
-  border: 2px solid #FFCC00;    /* hdd로가서 글로벌로바꾸기*/
-  `;
+  border: 2px solid #ffcc00; /* hdd로가서 글로벌로바꾸기*/
+`;
 
 const TopBar = styled.div``;
 

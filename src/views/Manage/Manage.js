@@ -1,18 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Navigation from "../../components/Navigation";
 
-
-
-function Manage() {
-  
+function Manage({ userObj }) {
   return (
     <div>
-     
-        <Navigation></Navigation>
-        
-  
+      <Navigation userObj={userObj}></Navigation>
     </div>
-    
 
     /* Rectangle 326 */
   );

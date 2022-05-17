@@ -87,6 +87,8 @@ const Rbtn = styled.button.attrs({
 `;
 
 function Mode({ userObj }) {
+  const [nweet, setNweet] = useState(""); //
+  const [nweets, setNweets] = useState([]); //
   const onLogOutClick = () => authService.signOut();
   //새로추가 함수
 
