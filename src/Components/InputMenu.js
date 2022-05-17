@@ -1,28 +1,21 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import inputBtnImg from '../img/inputmenubtn.png';
+import inputBtnImg from "../img/inputmenubtn.png";
 
-const InputMenuWarp = styled.div`
-`;
-const Section = styled.div`
-`;
-const SectionTitle = styled.h3`
-`;
-const SectionContext = styled.input.attrs(props => ({
+const InputMenuWarp = styled.div``;
+const Section = styled.div``;
+const SectionTitle = styled.h3``;
+const SectionContext = styled.input.attrs((props) => ({
   type: "text",
-}))`
-`;
-const SelectBoxWrap = styled.div`
-`;
-const SectionCategory = styled.select`
-`;
-const MenuImgInputWrap = styled.div`
-`;
+}))``;
+const SelectBoxWrap = styled.div``;
+const SectionCategory = styled.select``;
+const MenuImgInputWrap = styled.div``;
 const MenuImgInput = styled.div`
   margin: 0 8px 0 8px;
 
   label {
-      cursor: pointer;  
+    cursor: pointer;
     display: inline-block;
     font-size: inherit;
     line-height: normal;
@@ -43,74 +36,92 @@ const Wraper = styled.div`
   display: none;
 `;
 
-
 const InputMenu = (props) => {
   const [myImage, setMyImage] = useState(inputBtnImg);
   const [inputTitleValue, setMenuTitle] = useState("");
   const [inputPriceValue, setPrice] = useState("");
-
+  const [inputCategory, setCategory] = useState("스페셜할인팩");
+  
   useEffect(() => {
     props.setMenuTitle(inputTitleValue);
-  }, [inputTitleValue])
+  }, [inputTitleValue]);
 
   useEffect(() => {
     props.setMenuPrice(inputPriceValue);
-  }, [inputPriceValue])
+  }, [inputPriceValue]);
 
   useEffect(() => {
     props.setMenuImg(myImage);
-  }, [myImage])
+  }, [myImage]);
+
+  useEffect(() => {
+    props.setCategory(inputCategory);
+    console.log("값이 바뀜",inputCategory);
+  }, [inputCategory]);
 
   //   inputTitleValue, inputPriceValue , myImage ,   객체보내야함
 
   const CATEGORY_OPTIONS = [
-    { value: "special", name: "스페셜할인팩" },
-    { value: "burger", name: "와퍼" },
-    { value: "junior", name: "주니어" },
-    { value: "side", name: "사이드" },
-    { value: "dessert", name: "디저트" },
+    { value : "스페셜할인팩" ,name: "스페셜할인팩" },
+    { value : "와퍼" ,name: "와퍼" },
+    { value : "주니어" ,name: "주니어" },
+    { value : "사이드" ,name: "사이드" },
+    { value : "디저트" ,name: "디저트" },
   ];
 
   const getMenuTitle = (e) => {
     const val = e.target.value;
     setMenuTitle(val);
-  }
+  };
   const getPriceTitle = (e) => {
     const val = e.target.value;
     setPrice(val);
-  }
-
+  };
 
   const CategorySelectBox = (props) => {
-
     const handleChange = (e) => {
-      console.log("카테고리", e.target.value);
+     
+      setCategory(e.target.value);
+      
     };
 
     return (
       <SelectBoxWrap>
-        <SectionCategory onChange={handleChange}>
-
+        <SectionCategory onChange={handleChange} value = {inputCategory}>
           {props.options.map((option) => (
-            <option key={option.value} value={option.value} defaultValue={props.defaultValue === option.value}>
+            <option
+              key={option.value}
+              value={option.value}
+              
+              
+              defaultValue={props.defaultValue === option.value}
+            >
               {option.name}
             </option>
           ))}
-
         </SectionCategory>
       </SelectBoxWrap>
     );
-  }
+  };
 
   const MenuImgInput = (props) => {
-
     const handleImageChange = (e) => {
-      const nowSelectImageList = e.target.files;
-
-      const nowImageUrl = URL.createObjectURL(nowSelectImageList[0]);
-      console.log(nowImageUrl);
-      setMyImage(nowImageUrl);
+      //const nowSelectImageList = e.target.files;
+      const files = e.target.files;
+      const theFile = files[0];
+      const reader = new FileReader();
+      reader.onloadend = (finishedEvent) => {
+        const {
+          currentTarget: { result },
+        } = finishedEvent;
+        setMyImage(result);
+      };
+      reader.readAsDataURL(theFile);
     };
+
+    //const nowImageUrl = URL.createObjectURL(nowSelectImageList[0]);
+    //console.log(nowImageUrl);
+    //setMyImage(nowImageUrl);
 
     return (
       <MenuImgInputWrap>
@@ -127,36 +138,40 @@ const InputMenu = (props) => {
             accept="image/jpg, image/png, image/jpeg"
             onChange={handleImageChange}
           />
-
         </Wraper>
-
       </MenuImgInputWrap>
     );
-  }
+  };
 
   return (
     <InputMenuWarp>
-
       <MenuImgInput></MenuImgInput>
 
       <Section>
         <SectionTitle>메뉴명</SectionTitle>
-        <SectionContext onChange={getMenuTitle} value={inputTitleValue} ></SectionContext>
+        <SectionContext
+          onChange={getMenuTitle}
+          value={inputTitleValue}
+        ></SectionContext>
       </Section>
 
       <Section>
         <SectionTitle>가격</SectionTitle>
-        <SectionContext onChange={getPriceTitle} value={inputPriceValue}></SectionContext>
+        <SectionContext
+          onChange={getPriceTitle}
+          value={inputPriceValue}
+        ></SectionContext>
       </Section>
 
       <Section>
         <SectionTitle>카테고리</SectionTitle>
-        <CategorySelectBox options={CATEGORY_OPTIONS} defaultValue="banana"></CategorySelectBox>
+        <CategorySelectBox
+          options={CATEGORY_OPTIONS}
+          defaultValue = "스페셜할인팩"
+        ></CategorySelectBox>
       </Section>
-
     </InputMenuWarp>
-
   );
-}
+};
 
 export default InputMenu;

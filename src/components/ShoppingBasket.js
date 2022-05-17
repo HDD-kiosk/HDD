@@ -4,11 +4,16 @@ import Colors from "../styles/Colors";
 import Imgsrc from "../img/shopping_cart.png";
 import { Link } from "react-router-dom";
 import Order from "../views/Guest/Order/Order";
+import { dbService } from "../firebase";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  query,
+  onSnapshot,
+  orderBy,
+} from "firebase/firestore";
 const Wrapper = styled.div`
-  position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
   background-color: ${Colors.MainYellow};
   border: 5px solid ${Colors.MainYellow};
   border-radius: 30px;
@@ -150,6 +155,7 @@ const ShoppingBasket = (props) => {
   const [sum, setSum] = useState(0);
   const [index, setIndex] = useState(0);
   const [clear, setClear] = useState(false);
+
   useEffect(() => {
     let newArray = [];
     if (props.orderList != "undefined" && props.orderList != null) {
@@ -184,6 +190,26 @@ const ShoppingBasket = (props) => {
     setIndex(0);
     setSum(0);
     setAddMenu([]);
+  };
+
+  const addBtnOnClick = async () => {
+    // 모달안에 있는 "추가버튼"
+    //setSig(true);
+    const orderNumber = Math.floor(Math.random() * 9000) + 1000;
+    try {
+      const docRef = await addDoc(collection(dbService, "orders"), {
+        //image: menuImg, //Same useState
+        menuTitle: addMenu,
+        menuPrice: sum,
+        menuCount: count,
+        orderNumber: orderNumber,
+        creatorId: props.userObj.uid,
+       
+      });
+    } catch (error) {
+      console.error("Error adding document:", error);
+    }
+   
   };
 
   return (
@@ -295,7 +321,7 @@ const ShoppingBasket = (props) => {
               </ResultBtn>
               {count ? (
                 <Link to="/payment">
-                  <ResultBtn>
+                  <ResultBtn onClick={addBtnOnClick}>
                     <Text>주문하기</Text>
                   </ResultBtn>
                 </Link>

@@ -7,7 +7,7 @@ const modalShow = keyframes`
     from{
         opacity: 0;
         margin-top: -50px;
-    }cc
+    }
     to{
         opacity: 1;
         margin-top: 0;
@@ -38,7 +38,7 @@ const OpenModal = styled.div`
 `;
 
 const Section = styled.div`
-  width: ${(props) => props.width}
+  width: ${(props) => props.width};
   margin:0 auto;
   border-radius: 0.3rem;
   background-color: #FFFFFF;   /* hdd로가서 글로벌로바꾸기*/

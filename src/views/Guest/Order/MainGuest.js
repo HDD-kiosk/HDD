@@ -1,28 +1,27 @@
-import { useState } from 'react';
+import { useState } from "react";
 import styled from "styled-components";
-import Modal from './Modal.js';
+import Modal from "./Modal.js";
 import Colors from "../../../styles/Colors";
-import comingsoonImg from '../../../img/comingsoon.png';
-import forhereImg from '../../../img/forhere.png';
-import takeoutImg from '../../../img/takeout.png';
+import comingsoonImg from "../../../img/comingsoon.png";
+import forhereImg from "../../../img/forhere.png";
+import takeoutImg from "../../../img/takeout.png";
 import micImg from "../../../img/mic.png";
-import React, {useRef} from "react";
-import ProgressVoice from '../../../components/ProgressVoice';
+import React, { useRef } from "react";
+import ProgressVoice from "../../../components/ProgressVoice";
+import { useNavigate } from "react-router-dom";
 
 const MainGuestWrap = styled.div`
   text-align: center;
 `;
-const Header = styled.div`
-`;
+const Header = styled.div``;
 const MainGuestBannerImg = styled.img`
   width: 95vw;
   height: 50vh;
 `;
 
 const Nav = styled.div`
- display: flex;
- justify-content: center;
-
+  display: flex;
+  justify-content: center;
 `;
 
 const EatingSpaceTypeBtn = styled.div`
@@ -33,7 +32,7 @@ const EatingSpaceTypeBtn = styled.div`
 
   cursor: pointer;
   margin-top: 4.5rem;
-  
+
   & + & {
     margin-left: 15rem;
   }
@@ -48,7 +47,6 @@ const TakeoutImg = styled.img`
   margin-bottom: 0.5rem;
   width: 3.8vw;
   height: 8.8vh;
-
 `;
 
 const EatingSpaceTypeTitle = styled.h3`
@@ -59,18 +57,19 @@ const EatingSpaceTypeTitle = styled.h3`
   margin-top: 0.5rem;
 `;
 
-const ModalPromptTitle = styled.h3`
-`;
+const ModalPromptTitle = styled.h3``;
 
 function MainGuest() {
   const [modalOpen, setModalOpen] = useState(false);
-
+  const navigate = useNavigate();
   const ProgressVoiceRef = useRef();
 
-  const openModal = () => { //음성진행 여부 안내모달
+  const openModal = () => {
+    //음성진행 여부 안내모달
     setModalOpen(true);
   };
-  const closeModal = () => {//음성진행 여부 안내모달 
+  const closeModal = () => {
+    //음성진행 여부 안내모달
     setModalOpen(false);
   };
   const modeBtnClick = (e) => {
@@ -79,36 +78,43 @@ function MainGuest() {
   const YesBtnClick = () => {
     closeModal();
     ProgressVoiceRef.current.openModal();
-
   };
   const NoBtnClick = () => {
     closeModal();
+    navigate("/order");
   };
 
   return (
     <MainGuestWrap>
-
       <Header>
         <MainGuestBannerImg src={comingsoonImg} />
       </Header>
 
       <Nav>
-        <EatingSpaceTypeBtn onClick={modeBtnClick} >
+        <EatingSpaceTypeBtn onClick={modeBtnClick}>
           <EatingSpaceTypeImg src={forhereImg} />
           <EatingSpaceTypeTitle>매장에서 식사 </EatingSpaceTypeTitle>
         </EatingSpaceTypeBtn>
 
-        <EatingSpaceTypeBtn onClick={modeBtnClick}  >
+        <EatingSpaceTypeBtn onClick={modeBtnClick}>
           <TakeoutImg src={takeoutImg} />
           <EatingSpaceTypeTitle>테이크 아웃</EatingSpaceTypeTitle>
         </EatingSpaceTypeBtn>
 
-        <Modal open={modalOpen} close={closeModal}  first="네" second="아니오"  setWidth={380} img={micImg} btnEvent1={YesBtnClick} btnEvent2={NoBtnClick} movePage={"/order"}>
+        <Modal
+          open={modalOpen}
+          close={closeModal}
+          first="네"
+          second="아니오"
+          setWidth={380}
+          img={micImg}
+          btnEvent1={YesBtnClick}
+          btnEvent2={NoBtnClick}
+        >
           <ModalPromptTitle>음성 주문으로 도와드릴까요?</ModalPromptTitle>
         </Modal>
-         <ProgressVoice ref={ProgressVoiceRef} ></ProgressVoice> 
+        <ProgressVoice ref={ProgressVoiceRef}></ProgressVoice>
       </Nav>
-
     </MainGuestWrap>
   );
 }

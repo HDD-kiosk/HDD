@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Colors from "../styles/Colors";
-
-import whopperImage from '../img/image-whopper.png'
-import bulgogiWhopperImage from '../img/image-Bulgogi-whopper.png';
-import whopperIcon from '../img/icon-burger.png';
-import QCWhopperImage from '../img/image-QuattroCheeze-whopper.png';
-import Modal from '../views/Guest/Order/Modal'
+import { dbService } from "../firebase";
+import Modal from "../views/Guest/Order/Modal";
 import InputMenu from "./InputMenu";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  query,
+  onSnapshot,
+  orderBy,
+} from "firebase/firestore";
 
 const AddMenu = styled.button`
   position: absolute;
@@ -16,17 +20,15 @@ const AddMenu = styled.button`
   top: 3.71%;
   bottom: 89.55%;
 
-  background:${Colors.MainYellow};
-  border: 9px solid  ${Colors.MainYellow};
-  border-radius: 11px; 
-  color : ${Colors.White};
+  background: ${Colors.MainYellow};
+  border: 9px solid ${Colors.MainYellow};
+  border-radius: 11px;
+  color: ${Colors.White};
   cursor: pointer;
 `;
 const Special = styled.div`
-
-
   box-sizing: border-box;
- 
+
   display: flex;
   align-items: center;
   position: absolute;
@@ -79,12 +81,11 @@ const Styled = {
     border-style: solid;
     border-width: 5px;
     border-color: ${Colors.MainYellow};
-   
-    position : absolute;
-    left:7.5%;
+
+    position: absolute;
+    left: 7.5%;
     right: 0.9%;
-    top:25.71%;
-    
+    top: 25.71%;
   `,
   menuBox: styled.div`
     width: 269px;
@@ -120,13 +121,12 @@ const Styled = {
     padding-left: 160px;
   `,
 };
-const menuData = [
+/*const menuData = [
   { imageUrl: whopperImage, name: "와퍼", price: 5000 },
   { imageUrl: bulgogiWhopperImage, name: "불고기 와퍼", price: 6000 },
   { imageUrl: QCWhopperImage, name: "콰트로치즈 와퍼", price: 7000 },
   { imageUrl: whopperIcon, name: "와퍼퍼", price: 100 },
-
-];
+];*/
 
 const MenuBox = ({ imageUrl, name, price }) => {
   return (
@@ -137,16 +137,18 @@ const MenuBox = ({ imageUrl, name, price }) => {
     </Styled.menuBox>
   );
 };
-function Menu() {
-  
+function Menu({ userObj }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [menuTitle, setMenuTitle] = useState("");
   const [menuPrice, setMenuPrice] = useState("");
   const [menuImg, setMenuImg] = useState(null);
+  const [category, setCategory] = useState("");
+  const [menuData, setMenuData] = useState([]); // 바꿀 데이터
+  const [menuUserData, setMenuUserData] = useState([]); // 전체 유지
 
-  const [sig, setSig] = useState(false);
+  const [index, setIndex] = useState(1);
 
-  
+  const [sig, setSig] = useState(1);
 
   const openModal = () => {
     setModalOpen(true);
@@ -158,18 +160,82 @@ function Menu() {
     openModal();
   };
 
-  const addBtnOnClick = () => {     // 모달안에 있는 "추가버튼"
-    setSig(true);
-    const menuObj = {  imageUrl:menuImg, name:menuTitle, price:menuPrice, };
+  useEffect(() => {
+    let newMenuArr;
+    const q = query(
+      collection(dbService, "menus")
+      //orderBy("createdAt", "desc")
+    );
+    onSnapshot(q, (snapshot) => {
+      const menuArr = snapshot.docs.map((doc) => ({
+        ...doc.data(),
+      }));
+      newMenuArr = menuArr.filter((member) => {
+        return member.creatorId == userObj.uid;
+      });
+      setMenuUserData(newMenuArr);
+
+      switch (index) {
+        case 1:
+          const specialMenu = newMenuArr.filter((member) => {
+            return member.menuCategory == "스페셜할인팩";
+          });
+          setMenuData(specialMenu);
+          break;
+        case 2:
+          const wapperMenu = newMenuArr.filter((member) => {
+            return member.menuCategory == "와퍼";
+          });
+          setMenuData(wapperMenu);
+          break;
+        case 3:
+          const juniorMenu = newMenuArr.filter((member) => {
+            return member.menuCategory == "주니어";
+          });
+          setMenuData(juniorMenu);
+          break;
+        case 4:
+          const sideMenu = newMenuArr.filter((member) => {
+            return member.menuCategory == "사이드";
+          });
+          setMenuData(sideMenu);
+          break;
+        case 5:
+          const dessertMenu = newMenuArr.filter((member) => {
+            return member.menuCategory == "디저트";
+          });
+          setMenuData(dessertMenu);
+          break;
+      }
+    });
+  }, [sig]);
+
+  const addBtnOnClick = async () => {
+    // 모달안에 있는 "추가버튼"
+    setSig(sig * -1);
+
+    try {
+      const docRef = await addDoc(collection(dbService, "menus"), {
+        image: menuImg, //Same useState
+        menuTitle: menuTitle,
+        menuPrice: menuPrice,
+        menuCategory: category,
+        createdAt: Date.now(),
+        creatorId: userObj.uid,
+      });
+    } catch (error) {
+      console.error("Error adding document:", error);
+    }
+    //setNweet("");
+    const menuObj = { imageUrl: menuImg, name: menuTitle, price: menuPrice };
     menuData.push(menuObj);
     closeModal();
-   
   };
 
   const cancleBtnOnClick = () => {
-
     closeModal();
   };
+
   const [navColor, setNavColor] = useState({
     specialColor: Colors.MainYellow,
     burgerColor: Colors.White,
@@ -182,7 +248,7 @@ function Menu() {
     sidetextColor: Colors.Black,
     desserttextColor: Colors.Black,
   });
-  const onSpecialClick = () =>
+  const onSpecialClick = () => {
     setNavColor({
       specialColor: Colors.MainYellow,
       burgerColor: Colors.White,
@@ -195,7 +261,14 @@ function Menu() {
       sidetextColor: Colors.Black,
       desserttextColor: Colors.Black,
     });
-  const onBurgerClick = () =>
+    setIndex(1);
+    const specialMenu = menuUserData.filter((member) => {
+      return member.menuCategory == "스페셜할인팩";
+    });
+    setMenuData(specialMenu);
+  };
+
+  const onBurgerClick = () => {
     setNavColor({
       specialColor: Colors.White,
       burgerColor: Colors.MainYellow,
@@ -208,7 +281,14 @@ function Menu() {
       sidetextColor: Colors.Black,
       desserttextColor: Colors.Black,
     });
-  const onJuniorClick = () =>
+    setIndex(2);
+    const wapperMenu = menuUserData.filter((member) => {
+      return member.menuCategory == "와퍼";
+    });
+    setMenuData(wapperMenu);
+  };
+
+  const onJuniorClick = () => {
     setNavColor({
       specialColor: Colors.White,
       burgerColor: Colors.White,
@@ -221,7 +301,14 @@ function Menu() {
       sidetextColor: Colors.Black,
       desserttextColor: Colors.Black,
     });
-  const onSideClick = () =>
+    setIndex(3);
+    const juniorMenu = menuUserData.filter((member) => {
+      return member.menuCategory == "주니어";
+    });
+    setMenuData(juniorMenu);
+  };
+
+  const onSideClick = () => {
     setNavColor({
       specialColor: Colors.White,
       burgerColor: Colors.White,
@@ -234,7 +321,14 @@ function Menu() {
       sidetextColor: Colors.White,
       desserttextColor: Colors.Black,
     });
-  const onDessertClick = () =>
+    setIndex(4);
+    const sideMenu = menuUserData.filter((member) => {
+      return member.menuCategory == "사이드";
+    });
+    setMenuData(sideMenu);
+  };
+
+  const onDessertClick = () => {
     setNavColor({
       specialColor: Colors.White,
       burgerColor: Colors.White,
@@ -247,15 +341,20 @@ function Menu() {
       sidetextColor: Colors.Black,
       desserttextColor: Colors.White,
     });
+    const dessertMenu = menuUserData.filter((member) => {
+      return member.menuCategory == "디저트";
+    });
+    setMenuData(dessertMenu);
+    setIndex(5);
+  };
 
-
-  const onAddMenuClick = () => {  // 모달을 실행하기 위한 버튼
+  const onAddMenuClick = () => {
+    // 모달을 실행하기 위한 버튼
     addMenuBtnClick();
-  }
+  };
 
   return (
     <div>
-
       <Special
         backgroundColor={navColor.specialColor}
         color={navColor.specialtextColor}
@@ -296,19 +395,36 @@ function Menu() {
         {menuData &&
           menuData.map((v) => {
             return (
-              <MenuBox key={v.name} imageUrl={v.imageUrl} name={v.name} price={v.price}  />
+              <MenuBox
+                key={v.menuTitle}
+                imageUrl={v.image}
+                name={v.menuTitle}
+                price={v.menuPrice}
+              />
             );
           })}
       </Styled.menuWrap>
-      <AddMenu onClick={onAddMenuClick}>메뉴추가
-      </AddMenu>
+      <AddMenu onClick={onAddMenuClick}>메뉴추가</AddMenu>
 
-      <Modal open={modalOpen} close={closeModal} first="취소" second="추가" setWidth={400}  img={null} btnEvent1={cancleBtnOnClick} btnEvent2= {addBtnOnClick} movePage={""}>
-         <InputMenu signal={sig} setMenuTitle={setMenuTitle} setMenuPrice={setMenuPrice} setMenuImg={setMenuImg}></InputMenu> 
+      <Modal
+        open={modalOpen}
+        close={closeModal}
+        first="취소"
+        second="추가"
+        setWidth={400}
+        img={null}
+        btnEvent1={cancleBtnOnClick}
+        btnEvent2={addBtnOnClick}
+        movePage={""}
+      >
+        <InputMenu
+          setMenuTitle={setMenuTitle}
+          setMenuPrice={setMenuPrice}
+          setMenuImg={setMenuImg}
+          setCategory={setCategory}
+        ></InputMenu>
       </Modal>
     </div>
   );
-
-
 }
 export default Menu;
