@@ -1,6 +1,6 @@
-import { createGlobalStyle } from 'styled-components';
-import reset from 'styled-reset';
-import Colors from './Colors';
+import { createGlobalStyle } from "styled-components";
+import reset from "styled-reset";
+import Colors from "./Colors";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -9,7 +9,8 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
   }
   body {
-    font-family: 'Noto Sans CJK KR', Roboto;
+    font-family: 'Noto Sans KR', Roboto;
+    font-size:20px;
     width: 100vw;
     // max-width: 1440px; // ??
     height: 100vh;
@@ -28,7 +29,7 @@ const GlobalStyle = createGlobalStyle`
   button,
   input,
   textarea {
-    font-family: 'Noto Sans CJK KR', Roboto;
+    font-family: 'Noto Sans KR', Roboto;
   }
   button:focus,
   button:active,

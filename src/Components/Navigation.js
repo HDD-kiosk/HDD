@@ -15,7 +15,7 @@ const FirstNav = styled.div`
   color: ${(props) => props.color || Colors.Black};
   background: ${(props) => props.backgroundColor || Colors.MainYellow};
   vertical-align: center;
-  border: 9px solid  ${Colors.MainYellow};
+  border: 9px solid ${Colors.MainYellow};
   box-sizing: border-box;
   border-radius: 0px 63px 63px 0px;
 `;
@@ -40,19 +40,19 @@ const Button = styled.button`
   right: 5.49%;
   top: 3.71%;
   bottom: 89.55%;
-  border: 9px solid  ${Colors.MainYellow};
-  background:  ${Colors.MainYellow};
+  border: 9px solid ${Colors.MainYellow};
+  background: ${Colors.MainYellow};
   border-radius: 11px;
-  color : ${Colors.White}
+  color: ${Colors.White};
 `;
 const SetContainer = styled.div`
- position: absolute;
+  position: absolute;
   left: 10.12%;
   right: 5.49%;
   top: 13.71%;
   bottom: 49.55%;
-`
-function Navigation() {
+`;
+function Navigation({ userObj }) {
   const [color, setColor] = useState({
     firstColor: Colors.MainYellow,
     secondColor: Colors.White,
@@ -62,9 +62,7 @@ function Navigation() {
     thirdTextColor: Colors.Black,
   });
 
-
-
-  const onFirstclick = () =>{
+  const onFirstclick = () => {
     setFirstCheck(true);
     setColor({
       firstColor: Colors.MainYellow,
@@ -74,9 +72,9 @@ function Navigation() {
       secondTextColor: Colors.Black,
       thirdTextColor: Colors.Black,
     });
-  }
-   
-  const onSecondclick = () =>{
+  };
+
+  const onSecondclick = () => {
     setFirstCheck(false);
     setSecondCheck(true);
     setColor({
@@ -87,9 +85,9 @@ function Navigation() {
       secondTextColor: Colors.White,
       thirdTextColor: Colors.Black,
     });
-  }
-   
-  const onThirdclick = () =>{
+  };
+
+  const onThirdclick = () => {
     setFirstCheck(false);
     setSecondCheck(false);
     setColor({
@@ -100,10 +98,11 @@ function Navigation() {
       secondTextColor: Colors.Black,
       thirdTextColor: Colors.White,
     });
-  }
-   
-    const [firstCheck,setFirstCheck] = useState(true);
-    const [secondCheck,setSecondCheck] = useState(false);
+  };
+
+  const [firstCheck, setFirstCheck] = useState(true);
+  const [secondCheck, setSecondCheck] = useState(false);
+
   return (
     <div>
       <FirstNav
@@ -111,14 +110,16 @@ function Navigation() {
         color={color.firstTextColor}
         onClick={onFirstclick}
       >
-        주문확인
+        주문<br></br>
+        확인
       </FirstNav>
       <SecondNav
         backgroundColor={color.secondColor}
         color={color.secondTextColor}
         onClick={onSecondclick}
       >
-        메뉴관리
+        메뉴<br></br>
+        관리
       </SecondNav>
       <ThirdNav
         backgroundColor={color.thirdColor}
@@ -127,14 +128,19 @@ function Navigation() {
       >
         정산
       </ThirdNav>
-      <Button>버거왕</Button>
-      
-      {firstCheck === true ? <SetContainer><OrderList></OrderList></SetContainer> : secondCheck == true ? <Menu></Menu> : <SetContainer><CalTable></CalTable></SetContainer>}
-      
-      
-      
-    
-     
+      <Button>{userObj.email}</Button>
+
+      {firstCheck === true ? (
+        <SetContainer>
+          <OrderList userObj={userObj}></OrderList>
+        </SetContainer>
+      ) : secondCheck == true ? (
+        <Menu userObj={userObj}></Menu>
+      ) : (
+        <SetContainer>
+          <CalTable></CalTable>
+        </SetContainer>
+      )}
     </div>
 
     /* Rectangle 326 */

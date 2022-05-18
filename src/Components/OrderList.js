@@ -2,6 +2,19 @@ import React from "react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Colors from "../styles/Colors";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  query,
+  onSnapshot,
+  orderBy,
+  doc,
+  deleteDoc,
+  where,
+  getFirestore,
+} from "firebase/firestore";
+import { dbService } from "../firebase";
 
 const MenuWrap = styled.div`
   display: flex;
@@ -41,7 +54,7 @@ const MenuNumber = styled.div`
 
 const MenuItem = styled.div`
   width: 224px;
-  height: 47px;
+  height: 30px;
 `;
 
 const MenuName = styled.span``;
@@ -75,31 +88,57 @@ const Wrapper = styled.div`
   width: 100vw;
 `;
 
-function OrderList() {
+function OrderList({ userObj }) {
   const [list, setList] = useState(null);
   const [empty, setEmpty] = useState(true);
 
-  const confirmBtnOnClick = (event) => {
+  const confirmBtnOnClick = async (event) => {
+    //const value = event.target.value;
     const value = event.currentTarget.getAttribute("value");
-    const arr = list.filter((item) => item.number !== value);
-    setList(arr);
-    if (arr.length == 0) {
-      setEmpty(true);
-    } else {
-      setEmpty(false);
-    }
+
+    const newList = list.filter((member) => {
+      return member.orderNumber == value;
+    });
+
+    const docRef = doc(dbService, "orders", newList[0].id);
+
+    await deleteDoc(docRef);
+
+    //await deleteDoc(doc(dbService, "orders", `${list.orderNumber}`));
+    //console.log(event.target);
+    //doc.orderNumber==value
+    // const value = event.currentTarget.getAttribute("value");
+    // const arr = list.filter((item) => item.number !== value);
+    // setList(arr);
+    // if (arr.length == 0) {
+    //   setEmpty(true);
+    // } else {
+    //   setEmpty(false);
+    // }
+
+    //const value = event.currentTarget.getAttribute("value");
+    //const textRef = doc(dbService, "orders", `${value}`);
+    // await deleteDoc(textRef);
   };
 
-  const OrderBox = ({ number, name, amount }) => {
+  const OrderBox = ({ number, items }) => {
     return (
       <MenuBox>
-        <MenuNumber>{number}</MenuNumber>
+        <MenuNumber>주문번호 : {number}</MenuNumber>
         <MenuItemWrapper>
-          <MenuItem>
-            <MenuName>{name}</MenuName>
-            <MenuAmount>{amount}</MenuAmount>
-            <hr></hr>
-          </MenuItem>
+          {items.map((v) => {
+            return (
+              <>
+                <MenuItem>
+                  <>
+                    <MenuName>{v.name}</MenuName>
+                    <MenuAmount>{v.am}</MenuAmount>
+                  </>
+                  <hr></hr>
+                </MenuItem>
+              </>
+            );
+          })}
         </MenuItemWrapper>
         <ConfirmBtn value={number} onClick={confirmBtnOnClick}>
           확인
@@ -109,19 +148,34 @@ function OrderList() {
   };
 
   useEffect(() => {
-    const orderData = [
-      { number: "111", name: "와퍼", amount: "2" },
-      { number: "222", name: "치즈와퍼", amount: "3" },
-      { number: "333", name: "치즈와퍼", amount: "3" },
-      { number: "444", name: "치즈와퍼", amount: "3" },
-      { number: "555", name: "치즈와퍼", amount: "3" },
-    ];
-    setList(orderData);
-    if (orderData.length == 0) {
-      setEmpty(true);
-    } else {
-      setEmpty(false);
-    }
+    const q = query(
+      collection(dbService, "orders")
+      //orderBy("createdAt", "desc")
+    );
+    onSnapshot(q, (snapshot) => {
+      const orderArr = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      const newOrderArr = orderArr.filter((member) => {
+        return member.creatorId == userObj.uid;
+      });
+
+      setList(newOrderArr);
+
+      if (newOrderArr.length == 0) {
+        setEmpty(true);
+      } else {
+        setEmpty(false);
+      }
+      //console.log(neworderArr);
+      //setMenuUserData(newMenuArr);
+      //const specialMenu = newMenuArr.filter((member) => {
+      //return member.menuCategory == "스페셜할인팩";
+      //});
+      //setMenuData(specialMenu);
+    });
   }, []);
 
   return (
@@ -133,10 +187,9 @@ function OrderList() {
           list.map((v) => {
             return (
               <OrderBox
-                key={v.number}
-                number={v.number}
-                name={v.name}
-                amount={v.amount}
+                key={v.orderNumber}
+                number={v.orderNumber}
+                items={v.menuTitle}
               ></OrderBox>
             );
           })

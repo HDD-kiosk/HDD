@@ -136,7 +136,9 @@ const PwLabel = styled.label.attrs({ for: "pw" })`
 const Option = styled.div`
   position: relative;
 `;
-const OptionTwo = styled.div``;
+const OptionTwo = styled.div`
+  margin-top: 10px;
+`;
 
 const CheckboxInput = styled.input.attrs({
   type: "checkbox",
@@ -144,7 +146,8 @@ const CheckboxInput = styled.input.attrs({
   value: "autologin",
 })`
   float: left;
-  margin-top: 3px;
+  margin-top: 4px;
+  margin-right: 5px;
 `;
 
 const Caption = styled.div`
@@ -272,7 +275,7 @@ function Login() {
             </IntArea>
             <Option>
               <OptionTwo>
-                <CheckboxInput></CheckboxInput>자동로그인
+                <CheckboxInput></CheckboxInput> 자동로그인
               </OptionTwo>
             </Option>
             <BtnArea>

@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { useState, Suspense } from "react";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import Home from "../src/views/Home/Home";
 import Order from "../src/views/Guest/Order/Order";
@@ -13,7 +13,7 @@ import Manage from "./views/Manage/Manage";
 
 import firebase, { authService } from "./firebase";
 
-function Router({ isLoggedIn }) {
+function Router({ isLoggedIn, userObj }) {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <BrowserRouter>
@@ -26,14 +26,14 @@ function Router({ isLoggedIn }) {
             <Route path="/" element={<Login />} />
           )}
           <Route path="/" element={<Login />} />
-          <Route path="/order" element={<Order />} />
+          <Route path="/order" element={<Order userObj={userObj} />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/mode" element={<Mode />} />
           <Route path="/voiceorder" element={<VoiceOrder />} />
           <Route path="/mainguest" element={<MainGuset />} />
-          <Route path="/Manage" element={<Manage />} />
+          <Route path="/Manage" element={<Manage userObj={userObj} />} />
         </Routes>
       </BrowserRouter>
     </Suspense>
