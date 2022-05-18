@@ -110,14 +110,16 @@ function Navigation({ userObj }) {
         color={color.firstTextColor}
         onClick={onFirstclick}
       >
-        주문확인
+        주문<br></br>
+        확인
       </FirstNav>
       <SecondNav
         backgroundColor={color.secondColor}
         color={color.secondTextColor}
         onClick={onSecondclick}
       >
-        메뉴관리
+        메뉴<br></br>
+        관리
       </SecondNav>
       <ThirdNav
         backgroundColor={color.thirdColor}

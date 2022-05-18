@@ -162,6 +162,7 @@ const btnArea = styled.div`
 const Flowbtn = styled.button.attrs({
   type: "submit",
 })`
+  cursor: pointer;
   width: 100%;
   height: 50px;
   background: ${Colors.MainYellow};
