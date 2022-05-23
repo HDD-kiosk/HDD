@@ -1,0 +1,54 @@
+[debug] [2022-05-18T06:46:32.709Z] ----------------------------------------------------------------------
+[debug] [2022-05-18T06:46:32.716Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\lnr99\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2022-05-18T06:46:32.719Z] CLI Version:   9.18.0
+[debug] [2022-05-18T06:46:32.720Z] Platform:      win32
+[debug] [2022-05-18T06:46:32.721Z] Node Version:  v14.17.6
+[debug] [2022-05-18T06:46:32.724Z] Time:          Wed May 18 2022 15:46:32 GMT+0900 (대한민국 표준시)
+[debug] [2022-05-18T06:46:32.725Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-05-18T06:46:32.731Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2022-05-18T06:46:32.932Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-05-18T06:46:32.932Z] > authorizing via signed-in user (lnr0920@gmail.com)
+[debug] [2022-05-18T06:46:32.932Z] [iam] checking project hdd-client for permissions ["firebase.projects.get"]
+[debug] [2022-05-18T06:46:32.935Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2022-05-18T06:46:32.935Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2022-05-18T06:46:33.199Z] <<< HTTP RESPONSE 400 {"cache-control":"no-cache, no-store, max-age=0, must-revalidate","pragma":"no-cache","expires":"Mon, 01 Jan 1990 00:00:00 GMT","date":"Wed, 18 May 2022 06:46:32 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2022-05-18T06:46:33.204Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/hdd-client:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2022-05-18T06:46:33.505Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2022-05-18T06:46:33.505Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2022-05-18T06:46:34.076Z] <<< HTTP RESPONSE 401 {"www-authenticate":"Bearer realm=\"https://accounts.google.com/\", error=\"invalid_token\"","vary":"X-Origin, Referer, Origin,Accept-Encoding","content-type":"application/json; charset=UTF-8","date":"Wed, 18 May 2022 06:46:33 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=684","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2022-05-18T06:46:34.077Z] <<< HTTP RESPONSE BODY {"error":{"code":401,"message":"Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.","status":"UNAUTHENTICATED","details":[{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"ACCESS_TOKEN_TYPE_UNSUPPORTED","metadata":{"service":"cloudresourcemanager.googleapis.com","method":"google.cloudresourcemanager.v1.Projects.TestIamPermissions"}}]}}
+[debug] [2022-05-18T06:46:34.091Z] [iam] error while checking permissions, command may fail: FirebaseError: HTTP Error: 401, Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.
+[debug] [2022-05-18T06:46:34.093Z] > refreshing access token with scopes: []
+[debug] [2022-05-18T06:46:34.093Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2022-05-18T06:46:34.309Z] <<< HTTP RESPONSE 400 {"pragma":"no-cache","date":"Wed, 18 May 2022 06:46:33 GMT","expires":"Mon, 01 Jan 1990 00:00:00 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2022-05-18T06:46:34.315Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/hdd-client [none]
+[debug] [2022-05-18T06:46:34.578Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/hdd-client 401
+[debug] [2022-05-18T06:46:34.578Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/hdd-client {"error":{"code":401,"message":"Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.","status":"UNAUTHENTICATED"}}
+[debug] [2022-05-18T06:46:34.579Z] HTTP Error: 401, Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.
+[debug] [2022-05-18T06:46:34.833Z] FirebaseError: HTTP Error: 401, Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.
+    at module.exports (C:\Users\lnr99\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:38:12)
+    at Client.doRequest (C:\Users\lnr99\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:238:23)
+    at processTicksAndRejections (internal/process/task_queues.js:95:5)
+    at async Client.request (C:\Users\lnr99\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:96:20)
+    at async Object.getFirebaseProject (C:\Users\lnr99\AppData\Roaming\npm\node_modules\firebase-tools\lib\management\projects.js:290:21)
+    at async needProjectNumber (C:\Users\lnr99\AppData\Roaming\npm\node_modules\firebase-tools\lib\projectUtils.js:46:22)
+    at async C:\Users\lnr99\AppData\Roaming\npm\node_modules\firebase-tools\lib\command.js:188:17
+[error] 
+[error] Error: Failed to get Firebase project hdd-client. Please make sure the project exists and your account has permission to access it.
+[debug] [2022-05-18T06:47:24.475Z] ----------------------------------------------------------------------
+[debug] [2022-05-18T06:47:24.483Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\lnr99\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js login --reauth
+[debug] [2022-05-18T06:47:24.484Z] CLI Version:   9.18.0
+[debug] [2022-05-18T06:47:24.484Z] Platform:      win32
+[debug] [2022-05-18T06:47:24.484Z] Node Version:  v14.17.6
+[debug] [2022-05-18T06:47:24.486Z] Time:          Wed May 18 2022 15:47:24 GMT+0900 (대한민국 표준시)
+[debug] [2022-05-18T06:47:24.487Z] ----------------------------------------------------------------------
+[debug] 
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://accounts.google.com/o/oauth2/auth?client_id=563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com&scope=email%20openid%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloudplatformprojects.readonly%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Ffirebase%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloud-platform&response_type=code&state=526032587&redirect_uri=http%3A%2F%2Flocalhost%3A9005&login_hint=lnr0920%40gmail.com
+[info] 
+[info] Waiting for authentication...
