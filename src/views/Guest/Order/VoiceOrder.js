@@ -6,6 +6,12 @@ import AudioRecord from "../../../components/AudioRecord";
 const KAKAO_TTS_URL = 'https://kakaoi-newtone-openapi.kakao.com/v1/synthesize';
 const REST_API_KEY = '9063332fecca3b9e512ce29c057add84';
 
+const fs = require('fs');
+const request = require('request');
+
+const clientId = '5dpql0ebdi';
+const clientSecret = 'BUEsuC0pd1keyIrw8it3KQzYwhnamuAx5qwaoc7R';
+
 const VoiceOrderWrap = styled.div`
 `;
 
@@ -50,6 +56,30 @@ function VoiceOrder() {
     //  STT API 결과 값을 가져온다
     //STT_TEXT = 서버에서 뿌려주는 텍스트 값;
 
+    // function stt(language, filePath) {
+    //   const url = `https://naveropenapi.apigw.ntruss.com/recog/v1/stt?lang=${language}`;
+    //   const requestConfig = {
+    //     url: url,
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/octet-stream',
+    //       'X-NCP-APIGW-API-KEY-ID': clientId,
+    //       'X-NCP-APIGW-API-KEY': clientSecret,
+    //     },
+    //     body: fs.createReadStream(filePath),
+    //   };
+
+    //   request(requestConfig, (err, response, body) => {
+    //     if (err) {
+    //       console.log(err);
+    //       return;
+    //     }
+    //     console.log(response.statusCode);
+    //     console.log(body);
+    //   });
+    // }
+
+    // stt('Kor', soundFile);
 
   };
 

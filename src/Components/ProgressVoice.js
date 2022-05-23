@@ -7,6 +7,7 @@ import micImg from '../img/mic.png';
 
 
 const ModalPromptTitle = styled.h3`
+  line-height: 20,
 `;
 
 const ProgressVoice = forwardRef((props, ref) => {
