@@ -1,6 +1,6 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback } from 'react';
 import Colors from '../styles/Colors';
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const RecAudioBtn = styled.button`
   font-weight: bold;
@@ -24,7 +24,6 @@ const SubmitAudioFileBtn = styled.button`
   cursor: pointer;
   width: 80px;
   height: 45px;
-
 `;
 
 const AudioRecord = (props) => {
@@ -34,7 +33,7 @@ const AudioRecord = (props) => {
   const [source, setSource] = useState();
   const [analyser, setAnalyser] = useState();
   const [audioUrl, setAudioUrl] = useState();
-  const [recordText, setRecordText] = useState("주문시작");
+  const [recordText, setRecordText] = useState('주문시작');
 
   let soundFile = null;
 
@@ -60,10 +59,10 @@ const AudioRecord = (props) => {
       setMedia(mediaRecorder);
       makeSound(stream);
 
-      analyser.onaudioprocess = function (e) {
+      analyser.onaudioprocess = function(e) {
         // 3분(180초) 지나면 자동으로 음성 저장 및 녹음 중지
         if (e.playbackTime > 180) {
-          stream.getAudioTracks().forEach(function (track) {
+          stream.getAudioTracks().forEach(function(track) {
             track.stop();
           });
           mediaRecorder.stop();
@@ -71,13 +70,13 @@ const AudioRecord = (props) => {
           analyser.disconnect();
           audioCtx.createMediaStreamSource(stream).disconnect();
 
-          mediaRecorder.ondataavailable = function (e) {
+          mediaRecorder.ondataavailable = function(e) {
             setAudioUrl(e.data);
             setOnRec(true);
           };
         } else {
           setOnRec(false);
-          setRecordText("주문완료");
+          setRecordText('주문완료');
         }
       };
     });
@@ -86,18 +85,18 @@ const AudioRecord = (props) => {
   // 사용자가 음성 녹음을 중지했을 때
   const offRecAudio = () => {
     // dataavailable 이벤트로 Blob 데이터에 대한 응답을 받을 수 있음
-    media.ondataavailable = function (e) {
+    media.ondataavailable = function(e) {
       setAudioUrl(e.data);
 
       props.setAudioData(e.data);
 
       setOnRec(true);
-      setRecordText("주문시작");
+      setRecordText('주문시작');
       console.log('오디오레코드js', e.data);
     };
 
     // 모든 트랙에서 stop()을 호출해 오디오 스트림을 정지
-    stream.getAudioTracks().forEach(function (track) {
+    stream.getAudioTracks().forEach(function(track) {
       track.stop();
     });
 
@@ -113,20 +112,23 @@ const AudioRecord = (props) => {
       console.log(URL.createObjectURL(audioUrl)); // 출력된 링크에서 녹음된 오디오 확인 가능
     }
     // File 생성자를 사용해 파일로 변환
-    soundFile = new File([audioUrl], "soundBlob", { lastModified: new Date().getTime(), type: "audio/wav" });
+    soundFile = new File([audioUrl], 'soundBlob', {
+      lastModified: new Date().getTime(),
+      type: 'audio/wav',
+    });
     props.sttBtnClick(soundFile);
     props.ttsBtnClick();
-   //asdasdasd 
-
-
-
+    //asdasdasd
   }, [audioUrl]);
 
-  
   return (
     <div>
-      <RecAudioBtn onClick={onRec ? onRecAudio : offRecAudio}>{recordText}</RecAudioBtn>
-      <SubmitAudioFileBtn onClick={onSubmitAudioFile}>주문 확인</SubmitAudioFileBtn>
+      <RecAudioBtn onClick={onRec ? onRecAudio : offRecAudio}>
+        {recordText}
+      </RecAudioBtn>
+      <SubmitAudioFileBtn onClick={onSubmitAudioFile}>
+        주문 확인
+      </SubmitAudioFileBtn>
     </div>
   );
 };

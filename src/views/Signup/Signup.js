@@ -257,7 +257,7 @@ function Signup() {
             </btnArea>
             <IntArea>
               <HFIVECAPTION>
-                계속하기를 누름으로써 사용자는 빌드업의 <Alink>이용약관 </Alink>{" "}
+                계속하기를 누름으로써 사용자는 서비스의 <Alink>이용약관 </Alink>{" "}
                 및 <Alink>개인정보 처리방침</Alink>에 동의하는 것입니다.
               </HFIVECAPTION>
 

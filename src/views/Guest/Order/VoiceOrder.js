@@ -50,7 +50,7 @@ function VoiceOrder() {
     //  STT API 결과 값을 가져온다
     //STT_TEXT = 서버에서 뿌려주는 텍스트 값;
 
- 
+
   };
 
   const ttsBtnClick = (e) => {

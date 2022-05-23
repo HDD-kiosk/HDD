@@ -4,8 +4,13 @@ const express = require("express");
 const app = express();
 const cors = require('cors')({ origin: true });
 
+// 어드민 초기화. 클라우드 함수, 호스팅만 사용할 경우 따로 설정파일을 넘겨주지 않아도 됨
+admin.initializeApp();
 app.use(express.json()); // body-parser 설정 
-// app.use("/api", movieApp);
+const HDD = express.Router();
+// app.use('/api', HDD);
+
+const db = admin.firestore();
 
 exports.apicall = functions.region("asia-northeast3").https.onRequest(app);
 
