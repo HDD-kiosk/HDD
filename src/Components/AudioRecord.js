@@ -43,10 +43,8 @@ const AudioRecord = (props) => {
     // 자바스크립트를 통해 음원의 진행상태에 직접접근에 사용된다.
     const analyser = audioCtx.createScriptProcessor(0, 1, 1);
     setAnalyser(analyser);
-    console.log('1');
 
     function makeSound(stream) {
-      console.log('2');
       // 내 컴퓨터의 마이크나 다른 소스를 통해 발생한 오디오 스트림의 정보를 보여준다.
       const source = audioCtx.createMediaStreamSource(stream);
       setSource(source);
@@ -55,7 +53,6 @@ const AudioRecord = (props) => {
     }
     // 마이크 사용 권한 획득
     navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
-      console.log('3');
       const mediaRecorder = new MediaRecorder(stream);
       mediaRecorder.start();
       setStream(stream);
@@ -63,9 +60,8 @@ const AudioRecord = (props) => {
       makeSound(stream);
 
       analyser.onaudioprocess = function(e) {
-        console.log('4');
-        // 3분(180초) 지나면 자동으로 음성 저장 및 녹음 중지
-        if (e.playbackTime > 180) {
+        // 10초 지나면 자동으로 음성 저장 및 녹음 중지
+        if (e.playbackTime > 10) {
           stream.getAudioTracks().forEach(function(track) {
             track.stop();
           });
@@ -88,7 +84,6 @@ const AudioRecord = (props) => {
 
   // 사용자가 음성 녹음을 중지했을 때
   const offRecAudio = () => {
-    console.log('5');
     // dataavailable 이벤트로 Blob 데이터에 대한 응답을 받을 수 있음
     media.ondataavailable = function(e) {
       setAudioUrl(e.data);
@@ -102,7 +97,6 @@ const AudioRecord = (props) => {
 
     // 모든 트랙에서 stop()을 호출해 오디오 스트림을 정지
     stream.getAudioTracks().forEach(function(track) {
-      console.log('6');
       track.stop();
     });
 
@@ -114,7 +108,6 @@ const AudioRecord = (props) => {
   };
 
   const onSubmitAudioFile = useCallback(() => {
-    console.log('7');
     if (audioUrl) {
       console.log(URL.createObjectURL(audioUrl)); // 출력된 링크에서 녹음된 오디오 확인 가능
     }
@@ -123,9 +116,9 @@ const AudioRecord = (props) => {
       lastModified: new Date().getTime(),
       type: 'audio/wav',
     });
+
     props.sttBtnClick(soundFile);
-    props.ttsBtnClick();
-    //asdasdasd
+    // props.ttsBtnClick();
   }, [audioUrl]);
 
   return (
