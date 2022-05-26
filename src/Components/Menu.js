@@ -2,11 +2,6 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Colors from "../styles/Colors";
 import { dbService } from "../firebase";
-
-import whopperImage from "../img/image-whopper.png";
-import bulgogiWhopperImage from "../img/image-Bulgogi-whopper.png";
-import whopperIcon from "../img/icon-burger.png";
-import QCWhopperImage from "../img/image-QuattroCheeze-whopper.png";
 import Modal from "../views/Guest/Order/Modal";
 import InputMenu from "./InputMenu";
 import {
@@ -15,6 +10,8 @@ import {
   getDocs,
   query,
   onSnapshot,
+  doc,
+  deleteDoc,
   orderBy,
 } from "firebase/firestore";
 
@@ -33,7 +30,7 @@ const AddMenu = styled.button`
 `;
 const Special = styled.div`
   box-sizing: border-box;
-
+  cursor: pointer;
   display: flex;
   align-items: center;
   position: absolute;
@@ -75,6 +72,12 @@ const Text = styled.span`
   transform: rotate(90deg);
 `;
 
+const DeleteBtn = styled.span`
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  cursor: pointer;
+`;
 const Styled = {
   menuWrap: styled.div`
     display: flex;
@@ -99,6 +102,7 @@ const Styled = {
     border-style: solid;
     border-width: 1px;
     margin: 20px 20px;
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -132,10 +136,23 @@ const Styled = {
   { imageUrl: QCWhopperImage, name: "콰트로치즈 와퍼", price: 7000 },
   { imageUrl: whopperIcon, name: "와퍼퍼", price: 100 },
 ];*/
+//const [close, setClose] = useState(false);
 
-const MenuBox = ({ imageUrl, name, price }) => {
+const MenuBox = ({ imageUrl, name, price, menuData }) => {
+  const deleteBtnClick = async () => {
+    console.log(name);
+    console.log(menuData);
+    const newList = menuData.filter((member) => {
+      return member.menuTitle == name;
+    });
+    const docRef = doc(dbService, "menus", newList[0].id);
+
+    await deleteDoc(docRef);
+  };
+
   return (
     <Styled.menuBox>
+      <DeleteBtn onClick={deleteBtnClick}>❌</DeleteBtn>
       <Styled.menuImage src={imageUrl} />
       <Styled.menuName>{name}</Styled.menuName>
       <Styled.menuPrice>{price}원</Styled.menuPrice>
@@ -152,7 +169,6 @@ function Menu({ userObj }) {
   const [menuUserData, setMenuUserData] = useState([]); // 전체 유지
 
   const [index, setIndex] = useState(1);
-
   const [sig, setSig] = useState(1);
 
   const openModal = () => {
@@ -173,6 +189,7 @@ function Menu({ userObj }) {
     );
     onSnapshot(q, (snapshot) => {
       const menuArr = snapshot.docs.map((doc) => ({
+        id: doc.id,
         ...doc.data(),
       }));
       newMenuArr = menuArr.filter((member) => {
@@ -405,6 +422,7 @@ function Menu({ userObj }) {
                 imageUrl={v.image}
                 name={v.menuTitle}
                 price={v.menuPrice}
+                menuData={menuUserData}
               />
             );
           })}

@@ -5,6 +5,7 @@ import CalTable from "./CalTable";
 import Menu from "./Menu";
 import OrderList from "./OrderList";
 const FirstNav = styled.div`
+  cursor: pointer;
   position: absolute;
   left: 2.64%;
   right: 91.88%;

@@ -41,6 +41,7 @@ const LogoutButton = styled.button`
   color: ${Colors.White};
   margin-top: 10px;
   margin-right: 5px;
+  cursor: pointer;
 `;
 
 const TitleArea = styled.div`
@@ -69,6 +70,7 @@ const Lbtn = styled.button.attrs({
   border-radius: 25px;
   left: 300px;
   top: 300px;
+  cursor: pointer;
 `;
 
 const Rbtn = styled.button.attrs({
@@ -84,6 +86,7 @@ const Rbtn = styled.button.attrs({
   border-radius: 25px;
   right: 300px;
   top: 300px;
+  cursor: pointer;
 `;
 
 function Mode({ userObj }) {

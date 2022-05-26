@@ -15,6 +15,8 @@ import {
   onSnapshot,
   orderBy,
 } from "firebase/firestore";
+import Payment from "./Payment";
+import Confirmorder from "../../Confirmorder/Confirmorder";
 
 // ${(props) =>
 //   props.isSelected && //primary 가 존재할 경우
@@ -24,6 +26,7 @@ import {
 //   `}
 
 const Special = styled.div`
+  cursor: pointer;
   box-sizing: border-box;
   margin-top: 4%;
 
@@ -251,6 +254,13 @@ const MenuBox = ({ imageUrl, name, price, order }) => {
   );
 };
 
+const PaymentWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+`;
+
 function Order({ userObj }) {
   const [isSelected, setIsSelected] = useState(false);
   const [orderList, setOrderList] = useState(null);
@@ -258,7 +268,26 @@ function Order({ userObj }) {
   const [menuData, setMenuData] = useState([]); // 바꿀 데이터
   const [menuUserData, setMenuUserData] = useState([]); // 전체 유지
   const [sig, setSig] = useState(1);
+  const [ordering, setOrdering] = useState(false);
+  const [payComplete, setPayComplete] = useState(false);
+  const [list, setList] = useState(null);
 
+  useEffect(() => {
+    if (payComplete) {
+      try {
+        const docRef = addDoc(collection(dbService, "orders"), {
+          menuTitle: list.menuTitle,
+          menuPrice: list.menuPrice,
+          menuCount: list.menuCount,
+          orderNumber: list.orderNumber,
+          creatorId: list.creatorId,
+        });
+        //setOrn(orderNumber);
+      } catch (error) {
+        console.error("Error adding document:", error);
+      }
+    }
+  }, [payComplete]);
   useEffect(() => {
     let newMenuArr;
     const q = query(
@@ -273,7 +302,6 @@ function Order({ userObj }) {
         return member.creatorId == userObj.uid;
       });
       setMenuUserData(newMenuArr);
-      console.log("hi", newMenuArr);
       switch (index) {
         case 1:
           const specialMenu = newMenuArr.filter((member) => {
@@ -423,74 +451,80 @@ function Order({ userObj }) {
 
   return (
     <div>
-      <ShoppingBasketWrap>
-        <ShoppingBasket userObj={userObj} orderList={orderList} />
-      </ShoppingBasketWrap>
-      <ContentWrap>
-        {/*<Styled.categoryWrap>
-          {categoryData &&
-            categoryData.map((v, index) => {
-              return (
-                <Styled.categoryBox key={index} onClick = {categoryClick} backgroundColor = {backgroundColor}>
-                  <Styled.categoryName>{v}</Styled.categoryName>
-                </Styled.categoryBox>
-              );
-            })}
-          </Styled.categoryWrap>*/}
+      {payComplete ? (
+        <Confirmorder listNumber={list.orderNumber}></Confirmorder>
+      ) : (
+        <div>
+          <ShoppingBasketWrap>
+            <ShoppingBasket
+              userObj={userObj}
+              orderList={orderList}
+              ordering={setOrdering}
+              list={setList}
+            />
+          </ShoppingBasketWrap>
+          {ordering ? (
+            <PaymentWrapper>
+              <Payment payComplete={setPayComplete}></Payment>
+            </PaymentWrapper>
+          ) : (
+            <ContentWrap>
+              <Styled.categoryWrap>
+                <Special
+                  backgroundColor={navColor.specialColor}
+                  color={navColor.specialtextColor}
+                  onClick={onSpecialClick}
+                >
+                  <Text>스페셜 할인팩</Text>
+                </Special>
+                <Burger
+                  backgroundColor={navColor.burgerColor}
+                  color={navColor.burgertextColor}
+                  onClick={onBurgerClick}
+                >
+                  <Text>와퍼　</Text>
+                </Burger>
+                <Junior
+                  backgroundColor={navColor.juniorColor}
+                  color={navColor.juniortextColor}
+                  onClick={onJuniorClick}
+                >
+                  <Text>주니어</Text>
+                </Junior>
+                <Side
+                  backgroundColor={navColor.sideColor}
+                  color={navColor.sidetextColor}
+                  onClick={onSideClick}
+                >
+                  <Text>사이드</Text>
+                </Side>
+                <Dessert
+                  backgroundColor={navColor.dessertColor}
+                  color={navColor.desserttextColor}
+                  onClick={onDessertClick}
+                >
+                  <Text>디저트</Text>
+                </Dessert>
+              </Styled.categoryWrap>
 
-        <Styled.categoryWrap>
-          <Special
-            backgroundColor={navColor.specialColor}
-            color={navColor.specialtextColor}
-            onClick={onSpecialClick}
-          >
-            <Text>스페셜 할인팩</Text>
-          </Special>
-          <Burger
-            backgroundColor={navColor.burgerColor}
-            color={navColor.burgertextColor}
-            onClick={onBurgerClick}
-          >
-            <Text>와퍼　</Text>
-          </Burger>
-          <Junior
-            backgroundColor={navColor.juniorColor}
-            color={navColor.juniortextColor}
-            onClick={onJuniorClick}
-          >
-            <Text>주니어</Text>
-          </Junior>
-          <Side
-            backgroundColor={navColor.sideColor}
-            color={navColor.sidetextColor}
-            onClick={onSideClick}
-          >
-            <Text>사이드</Text>
-          </Side>
-          <Dessert
-            backgroundColor={navColor.dessertColor}
-            color={navColor.desserttextColor}
-            onClick={onDessertClick}
-          >
-            <Text>디저트</Text>
-          </Dessert>
-        </Styled.categoryWrap>
-
-        <Styled.menuWrap>
-          {menuData &&
-            menuData.map((v) => {
-              return (
-                <MenuBox
-                  key={v.menuTitle}
-                  imageUrl={v.image}
-                  name={v.menuTitle}
-                  price={v.menuPrice}
-                  order={setOrderList}
-                />
-              );
-            })}
-        </Styled.menuWrap>
-      </ContentWrap>
+              <Styled.menuWrap>
+                {menuData &&
+                  menuData.map((v) => {
+                    return (
+                      <MenuBox
+                        key={v.menuTitle}
+                        imageUrl={v.image}
+                        name={v.menuTitle}
+                        price={v.menuPrice}
+                        order={setOrderList}
+                      />
+                    );
+                  })}
+              </Styled.menuWrap>
+            </ContentWrap>
+          )}
+        </div>
+      )}
     </div>
   );
 }
