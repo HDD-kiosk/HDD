@@ -32,7 +32,7 @@ function Router({ isLoggedIn, userObj }) {
           <Route path="/signup" element={<Signup />} />
           <Route path="/mode" element={<Mode />} />
           <Route path="/voiceorder" element={<VoiceOrder />} />
-          <Route path="/mainguest" element={<MainGuset />} />
+          <Route path="/mainguest" element={<MainGuset userObj={userObj} />} />
           <Route path="/Manage" element={<Manage userObj={userObj} />} />
         </Routes>
       </BrowserRouter>

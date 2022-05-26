@@ -1,14 +1,14 @@
-import { useState } from "react";
-import styled from "styled-components";
-import Modal from "./Modal.js";
-import Colors from "../../../styles/Colors";
-import comingsoonImg from "../../../img/comingsoon.png";
-import forhereImg from "../../../img/forhere.png";
-import takeoutImg from "../../../img/takeout.png";
-import micImg from "../../../img/mic.png";
-import React, { useRef } from "react";
-import ProgressVoice from "../../../components/ProgressVoice";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import styled from 'styled-components';
+import Modal from './Modal.js';
+import Colors from '../../../styles/Colors';
+import comingsoonImg from '../../../img/comingsoon.png';
+import forhereImg from '../../../img/forhere.png';
+import takeoutImg from '../../../img/takeout.png';
+import micImg from '../../../img/mic.png';
+import React, { useRef } from 'react';
+import ProgressVoice from '../../../components/ProgressVoice';
+import { useNavigate } from 'react-router-dom';
 
 const MainGuestWrap = styled.div`
   text-align: center;
@@ -50,7 +50,7 @@ const TakeoutImg = styled.img`
 `;
 
 const EatingSpaceTypeTitle = styled.h3`
-  font-family: "Noto Sans"; /*나중 글로벌스타일 확인*/
+  font-family: 'Noto Sans'; /*나중 글로벌스타일 확인*/
   font-size: 1.1rem;
   font-weight: bold;
   color: ${Colors.White};
@@ -81,7 +81,7 @@ function MainGuest() {
   };
   const NoBtnClick = () => {
     closeModal();
-    navigate("/order");
+    navigate('/order');
   };
 
   return (
