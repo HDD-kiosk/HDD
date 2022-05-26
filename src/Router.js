@@ -10,6 +10,7 @@ import Mode from "./views/Mode/Mode";
 import VoiceOrder from "./views/Guest/Order/VoiceOrder";
 import MainGuset from "./views/Guest/Order/MainGuest";
 import Manage from "./views/Manage/Manage";
+import FindAlgo from "./components/FindAlgo"; 
 
 import firebase, { authService } from "./firebase";
 
@@ -32,7 +33,7 @@ function Router({ isLoggedIn, userObj }) {
           <Route path="/signup" element={<Signup />} />
           <Route path="/mode" element={<Mode />} />
           <Route path="/voiceorder" element={<VoiceOrder />} />
-          <Route path="/mainguest" element={<MainGuset userObj={userObj} />} />
+          <Route path="/mainguest" element={<MainGuset  userObj={userObj}  />} />
           <Route path="/Manage" element={<Manage userObj={userObj} />} />
         </Routes>
       </BrowserRouter>

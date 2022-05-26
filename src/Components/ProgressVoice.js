@@ -10,7 +10,7 @@ const ModalPromptTitle = styled.h3`
   line-height: 20,
 `;
 
-const ProgressVoice = forwardRef((props, ref) => {
+const ProgressVoice = forwardRef(( props, ref ) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const openModal = () => {
@@ -28,7 +28,7 @@ const ProgressVoice = forwardRef((props, ref) => {
   return (
     <ProgressModal open={modalOpen} close={closeModal} first="네" second="아니오" setWidth={600} img={micImg} movePage={""}>
       <ModalPromptTitle>주문시작을 누르고 주문을 시작하세요.<br/>주문을 마쳤다면 버튼을 다시 눌러주세요.<br/>다시 하기를 원한다면 똑같이 반복하면 됩니다.</ModalPromptTitle>
-      <VoiceOrder></VoiceOrder>
+      <VoiceOrder userObj={props.userObj}></VoiceOrder>
     </ProgressModal>
   );
 });
