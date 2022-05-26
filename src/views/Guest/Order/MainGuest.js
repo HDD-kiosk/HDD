@@ -59,7 +59,8 @@ const EatingSpaceTypeTitle = styled.h3`
 
 const ModalPromptTitle = styled.h3``;
 
-function MainGuest() {
+function MainGuest( {userObj} ) {
+
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
   const ProgressVoiceRef = useRef();
@@ -113,7 +114,7 @@ function MainGuest() {
         >
           <ModalPromptTitle>음성 주문으로 도와드릴까요?</ModalPromptTitle>
         </Modal>
-        <ProgressVoice ref={ProgressVoiceRef}></ProgressVoice>
+        <ProgressVoice ref={ProgressVoiceRef} userObj={userObj} ></ProgressVoice>
       </Nav>
     </MainGuestWrap>
   );
