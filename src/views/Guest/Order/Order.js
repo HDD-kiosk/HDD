@@ -270,7 +270,24 @@ function Order({ userObj }) {
   const [sig, setSig] = useState(1);
   const [ordering, setOrdering] = useState(false);
   const [payComplete, setPayComplete] = useState(false);
+  const [list, setList] = useState(null);
 
+  useEffect(() => {
+    if (payComplete) {
+      try {
+        const docRef = addDoc(collection(dbService, "orders"), {
+          menuTitle: list.menuTitle,
+          menuPrice: list.menuPrice,
+          menuCount: list.menuCount,
+          orderNumber: list.orderNumber,
+          creatorId: list.creatorId,
+        });
+        //setOrn(orderNumber);
+      } catch (error) {
+        console.error("Error adding document:", error);
+      }
+    }
+  }, [payComplete]);
   useEffect(() => {
     let newMenuArr;
     const q = query(
@@ -285,7 +302,6 @@ function Order({ userObj }) {
         return member.creatorId == userObj.uid;
       });
       setMenuUserData(newMenuArr);
-      console.log("hi", newMenuArr);
       switch (index) {
         case 1:
           const specialMenu = newMenuArr.filter((member) => {
@@ -436,7 +452,7 @@ function Order({ userObj }) {
   return (
     <div>
       {payComplete ? (
-        <Confirmorder></Confirmorder>
+        <Confirmorder listNumber={list.orderNumber}></Confirmorder>
       ) : (
         <div>
           <ShoppingBasketWrap>
@@ -444,6 +460,7 @@ function Order({ userObj }) {
               userObj={userObj}
               orderList={orderList}
               ordering={setOrdering}
+              list={setList}
             />
           </ShoppingBasketWrap>
           {ordering ? (

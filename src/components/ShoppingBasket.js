@@ -194,23 +194,20 @@ const ShoppingBasket = (props) => {
     setAddMenu([]);
   };
 
-  const addBtnOnClick = async () => {
+  const addBtnOnClick = () => {
     setOrdering(true);
     props.ordering(true);
 
     const orderNumber = Math.floor(Math.random() * 9000) + 1000;
-    try {
-      const docRef = await addDoc(collection(dbService, "orders"), {
-        menuTitle: addMenu,
-        menuPrice: sum,
-        menuCount: count,
-        orderNumber: orderNumber,
-        creatorId: props.userObj.uid,
-      });
-      //setOrn(orderNumber);
-    } catch (error) {
-      console.error("Error adding document:", error);
-    }
+    const list = {
+      menuTitle: addMenu,
+      menuPrice: sum,
+      menuCount: count,
+      orderNumber: orderNumber,
+      creatorId: props.userObj.uid,
+    };
+    //setOrn(orderNumber);
+    props.list(list);
   };
 
   const backBtnOnClick = () => {
