@@ -69,6 +69,15 @@ function VoiceOrder({ userObj }) {
     console.log('보이스오더js에서블랍데이터:', audioBlobData);
     const audioURL = URL.createObjectURL(audioBlobData);
     console.log('보이스오더js에서URL:', audioURL);
+    axios.post(
+      'http://localhost:5000/hdd-client/us-central1/apicall',
+      audioURL
+    ).then((res) => {
+      return res.json();
+    }).then(function (data) {
+      console.log(data);
+    })
+
     // "soundFile"을 디비로 보낸다
     // 서버에서 STT API를 호출한다
     //  STT API 결과 값을 가져온다
@@ -88,7 +97,6 @@ function VoiceOrder({ userObj }) {
     } catch (error) {
       console.error("Error adding document:", error);
     }
-
 
   };
 
