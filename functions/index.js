@@ -28,7 +28,7 @@ exports.apicall = functions.https.onRequest((req, response) => {
       }
     );
 
-    request(requestConfig, (err, response, body) => {
+    request(requestConfig, (err, res, body) => {
       if (err) {
         console.log(err);
         return;
@@ -36,6 +36,29 @@ exports.apicall = functions.https.onRequest((req, response) => {
 
       console.log(response.statusCode);
       console.log(body); //WoW
+      response.send(res);
+
     });
   });
+
+  cors(req, response, () => {
+    const audio = res.body;
+
+    // const requestConfig = 
+    request.post({
+      url: 'http://localhost:5000/hdd-client/us-central1/apicall',
+      headers: {
+        'Content-Type': 'audio/mpeg',
+      },
+      body: fs.createReadStream(audio),
+    });
+
+    // request(requestConfig, (err, res, body) => {
+    //   console.log(response.statusCode);
+    //   console.log(body); //WoW
+    //   response.send(res);
+    // });
+  });
+
+  
 });

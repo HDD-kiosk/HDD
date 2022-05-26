@@ -37,6 +37,7 @@ const TtsBtn = styled.div`
 
 function VoiceOrder() {
   const [audioData, setAudioData] = useState(null);
+  //STT_TEXT = 서버에서 뿌려주는 텍스트 값;
   let STT_TEXT = null;
 
 
@@ -53,25 +54,37 @@ function VoiceOrder() {
 
   const sttBtnClick = (soundFile,e) => {
     console.log('사운드파일은?', soundFile);
+    // soundFile을 파베로 보낸다
+    axios
+      .post('http://localhost:5000/hdd-client/us-central1/apicall', soundFile, {
+        headers: {
+          'Content-Type': 'audio/mpeg'
+        }
+      })
+      .then((response) => {
+        if(response.data){
+          console.log('Success: ' + response.data);
+        } else {
+          console.log('Failed...');
+        }
+        
+      });
+    // 파베에서 받아서 res로 보내면 여기서 그걸 받는다
+    // 콘솔에 찍는다
+    
 
-    // audio 파일 서버로 전송
-    // axios.post(
-    //   'https://cors-anywhere.herokuapp.com/https://naveropenapi.apigw.ntruss.com/recog/v1/stt?lang=Kor',
-    //   soundFile,
-    //   {
-    //     // 요청
-    //     headers: {
-    //       'Content-Type': 'application/octet-stream',
-    //       'X-NCP-APIGW-API-KEY-ID': clientId,
-    //       'X-NCP-APIGW-API-KEY': clientSecret,
-    //     },
-    //   }
-    // );
-
-    // "soundFile"을 디비로 보낸다
-    // 서버에서 STT API를 호출한다 
-    //  STT API 결과 값을 가져온다
-    //STT_TEXT = 서버에서 뿌려주는 텍스트 값;
+    // STT API를 호출
+    fetch('http://localhost:5000/hdd-client/us-central1/apicall')
+      .then(function(response) {
+        // The response is a Response instance.
+        // You parse the data into a useable format using `.json()`
+        return response.json();
+      })
+      .then(function(data) {
+        // `data` is the parsed version of the JSON returned from the above endpoint.
+        console.log(data); // { "userId": 1, "id": 1, "title": "...", "body": "..." }
+        console.log(data.body);
+      });
   };
 
   const ttsBtnClick = (e) => {
