@@ -125,7 +125,7 @@ const AudioRecord = (props) => {
     });
     console.log('오디오레코드.js에서사운드파일은?:', soundFile);
     props.sttBtnClick(soundFile, audioData);
-    props.ttsBtnClick();
+    //props.ttsBtnClick();
   };
   const onSubmitAudioFile = () => {
     props.sendOrder();
