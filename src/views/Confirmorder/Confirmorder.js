@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Hddlogo from "../../img/hddLogo.png";
+import Hddlogo from "../../img/hddlogo.png";
 import Loopy from "../../img/loopy.png";
 
 const Container = styled.div`

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { authService } from "../../firebase";
-import Hddlogo from "../../img/hddLogo.png";
+import Hddlogo from "../../img/hddlogo.png";
 import Colors from "../../styles/Colors";
 import {
   getAuth,

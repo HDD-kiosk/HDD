@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Hddlogo from "../../img/hddLogo.png";
+import Hddlogo from "../../img/hddlogo.png";
 import Loopy from "../../img/loopy.png";
 import Google from "../../img/googlelogo.png";
 import Colors from "../../styles/Colors";
