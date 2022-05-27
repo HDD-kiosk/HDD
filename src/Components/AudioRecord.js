@@ -118,17 +118,14 @@ const AudioRecord = (props) => {
       type: "audio/wav",
     });
     let formData = new FormData();
-    const config = {};
+    const config = {
+      "Content-Type": "multipart/form-data",
+    };
     console.log(soundFile);
     formData.append("file", soundFile);
+
     axios
-      .post(
-        "http://localhost:3001/test",
-        {
-          text: "hello",
-        },
-        config
-      )
+      .post("http://localhost:3001/test", formData, config)
       .then((response) => {
         console.log(response);
       });
