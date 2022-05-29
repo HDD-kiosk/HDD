@@ -65,12 +65,21 @@ const FindAlgo = (props) => {
   console.log('리플텍스트:', replacementText);
 
   let orderTextToArray = Array.from(replacementText);
+  let i =0;
+  let errorMsgText='';
   do {
     [startIndex] = findProduct(orderTextToArray, startIndex, tempList);
     orderTextToArray = orderTextToArray.slice(
       startIndex,
       orderTextToArray.length
     );
+    if( i === 50 ){
+      console.log("무한루프");
+      errorMsgText="상품과 개수를 말해주세요";
+      break;
+    }else {
+      i++;
+    }
   } while (!isEmptyArr(orderTextToArray));
 
   for (let i = 0; i < tempList.length; i++) {
@@ -88,8 +97,13 @@ const FindAlgo = (props) => {
     orderNumber: orderNumber,
     creatorId: userObj.uid,
   });
+  console.log('오더리스트:',orderList);
+if ( errorMsgText ) {
+  return [orderList,errorMsgText,1];
+} else {
+  return [orderList,replacementText];
+}
 
-  return orderList;
 };
 
 export default FindAlgo;

@@ -2,6 +2,8 @@ import React, { useState, useCallback } from 'react';
 import Colors from '../styles/Colors';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
+
 
 const RecAudioBtn = styled.button`
   font-weight: bold;
@@ -124,11 +126,38 @@ const AudioRecord = (props) => {
       type: 'audio/wav',
     });
     console.log('오디오레코드.js에서사운드파일은?:', soundFile);
-    props.sttBtnClick(soundFile, audioData);
-    //props.ttsBtnClick();
+
+    let formData = new FormData();
+    const config = {
+      "Content-Type": "multipart/form-data",
+    };
+    formData.append("file", soundFile);
+
+    axios
+      .post("http://localhost:3001/test", formData, config)
+      .then((response) => {
+        console.log(response);
+
+        fetch('http://localhost:3001/sttApi/api')
+          .then(function (response) {
+
+            return response.json();
+          })
+          .then(function (data) {
+
+            console.log(data);
+            console.log(data.body);
+            props.sttBtnClick(soundFile,data.body);
+
+          });
+
+      });
+
   };
+
   const onSubmitAudioFile = () => {
     props.sendOrder();
+    props.ttsBtnClick("잠시만 기달려주세요.",1);
     //navigate("/나중에알려주세요");
   };
 

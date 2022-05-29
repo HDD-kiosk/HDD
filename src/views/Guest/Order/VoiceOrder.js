@@ -52,11 +52,10 @@ function VoiceOrder({ userObj }) {
   const [list, setList] = useState(null);
   const [STT_TEXT, setSttText] = useState('');
   //const [tempStr, setTempStr] = useState('');
-  let startIndex='';
-  let lastIndex ='';
+  let startIndex = '';
+  let lastIndex = '';
 
   function voicePlay(responseAudioData) {
-    console.log("6");
     const context = new AudioContext();
 
     context.decodeAudioData(responseAudioData, (buffer) => {
@@ -67,78 +66,49 @@ function VoiceOrder({ userObj }) {
     });
   }
 
-  const sttBtnClick = (soundFile, audioBlobData) => {
+
+  const sttBtnClick = (soundFile, originText) => {
     console.log('보이스오더js에서사운드파일은?', soundFile);
-    console.log('보이스오더js에서블랍데이터:', audioBlobData);
-    const audioURL = URL.createObjectURL(audioBlobData);
-    console.log('보이스오더js에서URL:', audioURL);
-    // axios.post(
-    //   'http://localhost:5000/hdd-client/us-central1/apicall',
-    //   audioURL
-    // ).then((res) => {
-    //   return res.json();
-    // }).then(function (data) {
-    //   console.log(data);
-    // })
-      console.log("1");
+    console.log('오리진텍스트는?', originText);
 
-    fetch('http://localhost:5000/hdd-client/us-central1/apicall',soundFile)
-      .then(function (response) {
-        // The response is a Response instance.
-        // You parse the data into a useable format using `.json()`
-        console.log("2");
-        return response.json();
-      })
-      .then(function (data) {
-        console.log("3");
-        // `data` is the parsed version of the JSON returned from the above endpoint.
-        console.log("보이스오더js STT data: ", data); // { "userId": 1, "id": 1, "title": "...", "body": "..." }
-        console.log("보이스오더js STT data.body:", data.body);
-       let tempStr = data.body;
-        console.log("보이스오더js STT temp:", tempStr);
-         startIndex = tempStr.indexOf('\"', 8) + 1;
-         lastIndex = tempStr.lastIndexOf('\"') - 1;
+    if (originText != undefined) {
+      const str = originText;
+      console.log(str);
+      let startIndex = str.indexOf('\"', 7) + 1;
+      let lastIndex = str.lastIndexOf('\"') - 1;
+      let parsingText = str.substring(startIndex, lastIndex + 1);
+      console.log(parsingText);
 
-        let s = tempStr.substring(startIndex, lastIndex + 1);
+      // parsingText 를 orderText[0] 에 넣어줘야함
 
-        setSttText(s);
-        console.log("보이스오더js에서 s:",s);
-        console.log("보이스오더js에서 stt_text:",STT_TEXT);
-        ttsBtnClick(s);
-      });
+      const orderText = [parsingText, userObj];
 
+      let arr = FindAlgo(orderText); // return [orderList,replacementText] or [orderList,errorMsgText,1];
 
+      setList(arr[0][0]);
+      console.log(arr[0][0]);
+      console.log(arr[0][0].meunTitle);
+      console.log("arr[2]:", arr[2]);
+      console.log('arr[1]:', arr[1]);
 
-    // "soundFile"을 디비로 보낸다
-    // 서버에서 STT API를 호출한다
-    //  STT API 결과 값을 가져온다
-    //STT_TEXT = 서버에서 뿌려주는 텍스트 값;
-    // STT_TEXT를 orderText[0] 에 넣어줘야함
-    const orderText = [
-      '치즈와퍼 한 세트 스테커와퍼 하나 와악와퍼 2개 불와퍼 아홉세트 줘', userObj
-    ];
-
-
-    let arr = new Array(FindAlgo(orderText));
-    setList(arr[0][0]);
-
-    try {
-      const docRef = addDoc(collection(dbService, "audio"), {
-        audioURL,
-      });
-    } catch (error) {
-      console.error("Error adding document:", error);
+      if (arr[2] == undefined) {
+        ttsBtnClick(arr[1], 0);
+      } else {
+        ttsBtnClick(arr[1], 1);
+      }
+    } else {
+      ttsBtnClick("죄송해요 잘 알아듣지 못했어요", 1);
     }
 
   };
+  // option 0: 상품메시지 1: 안내메시지
+  const ttsBtnClick = (text, option) => {
+    let sttText = text;
+    if (option == 0) {
+      sttText = text + " 가 맞나요? 맞으면 주문확인을 눌러주세요.";
+    }
 
-  const ttsBtnClick = (e) => {
-    console.log("4");
-    console.log("tts버튼클릭");
-    console.log("e:",e);
-    //const xmlData = `<speak>${STT_TEXT}</speak>`; // 여기에 STT를 넣으면 성공
-    const xmlData = `<speak>${e}</speak>`; // 여기에 STT를 넣으면 성공
-  
+    const xmlData = `<speak>${sttText}</speak>`; // 여기에 STT를 넣으면 성공
 
     axios.post(KAKAO_TTS_URL, xmlData, {
 
@@ -149,12 +119,8 @@ function VoiceOrder({ userObj }) {
       responseType: 'arraybuffer'
 
     }).then((response) => {
-      console.log("5");
       voicePlay(response.data);
-      console.log("7");
-
     });
-
 
   };
 
