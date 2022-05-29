@@ -3,55 +3,24 @@ import { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import AudioRecord from "../../../components/AudioRecord";
+import { useNavigate } from "react-router-dom";
+
 import FindAlgo from "../../../components/FindAlgo";
 import {
   addDoc,
   collection,
-  getDocs,
-  query,
-  onSnapshot,
-  orderBy,
-  doc,
-  deleteDoc,
-  where,
-  getFirestore,
 } from "firebase/firestore";
 import { dbService } from "../../../firebase";
-import { updatePassword } from "firebase/auth";
 const KAKAO_TTS_URL = "https://kakaoi-newtone-openapi.kakao.com/v1/synthesize";
-const KAKAO_STT_URL = "https://kakaoi-newtone-openapi.kakao.com/v1/recognize";
 const REST_API_KEY = "9063332fecca3b9e512ce29c057add84";
 
-const clientId = "5dpql0ebdi";
-const clientSecret = "BUEsuC0pd1keyIrw8it3KQzYwhnamuAx5qwaoc7R";
 
 const VoiceOrderWrap = styled.div``;
 
-const SttBtn = styled.div`
-  width: 50px;
-  height: 50px;
-  border-radius: 15px;
-  background-color: yellow;
-  margin-right: 25px;
-  cursor: pointer;
-`;
-
-const TtsBtn = styled.div`
-  width: 50px;
-  height: 50px;
-  border-radius: 15px;
-  background-color: yellow;
-  margin-right: 25px;
-  cursor: pointer;
-`;
 
 function VoiceOrder({ userObj }) {
-  const [audioData, setAudioData] = useState(null);
   const [list, setList] = useState(null);
-  const [STT_TEXT, setSttText] = useState("");
-  //const [tempStr, setTempStr] = useState('');
-  let startIndex = "";
-  let lastIndex = "";
+  const navigate = useNavigate();
 
   function voicePlay(responseAudioData) {
     const context = new AudioContext();
@@ -68,7 +37,7 @@ function VoiceOrder({ userObj }) {
     console.log("보이스오더js에서사운드파일은?", soundFile);
     console.log("오리진텍스트는?", originText);
 
-    if (originText != undefined) {
+    if (originText !== undefined) {
       const str = originText;
       console.log(str);
       let startIndex = str.indexOf('"', 7) + 1;
@@ -84,7 +53,7 @@ function VoiceOrder({ userObj }) {
       console.log("arr이다", arr);
       setList(arr[0][0]);
 
-      if (arr[2] == undefined) {
+      if (arr[2] === undefined) {
         ttsBtnClick(arr, 0);
       } else {
         ttsBtnClick(arr[1], 1);
@@ -100,12 +69,14 @@ function VoiceOrder({ userObj }) {
     if (text === "죄송해요 잘 알아듣지 못했어요") {
       sttText = text;
     } else if (text === "주문이 접수되었습니다.") {
+      console.log(list);
       sttText = text;
+      navigate("/Confirmorder", { state: list.orderNumber });
     } else {
       const temp = text[0][0].menuTitle;
       console.log(temp);
       temp.map((v) => {
-        tempText += v.name + v.am + "개 ";
+        return tempText += v.name + v.am + "개 ";
       });
       sttText = tempText;
       if (option == 0) {
@@ -146,7 +117,6 @@ function VoiceOrder({ userObj }) {
   return (
     <VoiceOrderWrap>
       <AudioRecord
-        setAudioData={setAudioData}
         ttsBtnClick={ttsBtnClick}
         sttBtnClick={sttBtnClick}
         sendOrder={sendOrder}

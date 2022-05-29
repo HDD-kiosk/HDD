@@ -3,16 +3,11 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Colors from "../styles/Colors";
 import {
-  addDoc,
   collection,
-  getDocs,
   query,
   onSnapshot,
-  orderBy,
   doc,
   deleteDoc,
-  where,
-  getFirestore,
 } from "firebase/firestore";
 import { dbService } from "../firebase";
 

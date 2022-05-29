@@ -1,7 +1,6 @@
-import React, { useState, useCallback } from "react";
+import React, { useState} from "react";
 import Colors from "../styles/Colors";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const RecAudioBtn = styled.button`
@@ -34,9 +33,7 @@ const AudioRecord = (props) => {
   const [onRec, setOnRec] = useState(true);
   const [source, setSource] = useState();
   const [analyser, setAnalyser] = useState();
-  const [audioUrl, setAudioUrl] = useState();
   const [recordText, setRecordText] = useState("주문시작");
-  const navigate = useNavigate();
 
   let soundFile = null;
 
@@ -74,7 +71,6 @@ const AudioRecord = (props) => {
           audioCtx.createMediaStreamSource(stream).disconnect();
 
           mediaRecorder.ondataavailable = function(e) {
-            setAudioUrl(e.data);
             setOnRec(true);
             setRecordText("주문시작");
             makeAudioFile(e.data);
@@ -91,13 +87,10 @@ const AudioRecord = (props) => {
   const offRecAudio = () => {
     // dataavailable 이벤트로 Blob 데이터에 대한 응답을 받을 수 있음
     media.ondataavailable = function(e) {
-      setAudioUrl(e.data);
       makeAudioFile(e.data);
-      props.setAudioData(e.data);
 
       setOnRec(true);
       setRecordText("주문시작");
-      console.log("오디오레코드.js e.data: ", e.data);
     };
 
     // 모든 트랙에서 stop()을 호출해 오디오 스트림을 정지
@@ -124,7 +117,6 @@ const AudioRecord = (props) => {
       lastModified: new Date().getTime(),
       type: "audio/wav",
     });
-    console.log("오디오레코드.js에서사운드파일은?:", soundFile);
 
     let formData = new FormData();
     const config = {
@@ -152,8 +144,7 @@ const AudioRecord = (props) => {
   const onSubmitAudioFile = () => {
     props.sendOrder();
     props.ttsBtnClick("주문이 접수되었습니다.", 1);
-    navigate('/Confirmorder')
-
+  
   };
 
   return (

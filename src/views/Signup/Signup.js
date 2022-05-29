@@ -4,14 +4,7 @@ import styled from "styled-components";
 import { authService } from "../../firebase";
 import Hddlogo from "../../img/hddlogo.png";
 import Colors from "../../styles/Colors";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  RecaptchaVerifier,
-  signInWithPhoneNumber,
-} from "firebase/auth";
-import { async } from "@firebase/util";
-import firebase from "firebase/app";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const Container = styled.body`
   position: relative;
@@ -109,21 +102,6 @@ const PhoneInput = styled.input.attrs({
   outline: none;
 `;
 
-const AuthInput = styled.input.attrs({
-  type: "button",
-  name: "auth",
-  value: "전화번호 인증",
-})`
-  width: 31%;
-  padding: 10px 10px 10px;
-  background-color: ${Colors.MainYellow};
-  border: none;
-  font-size: 15px;
-  color: white;
-  outline: none;
-  border-radius: 10px;
-`;
-
 const PasswordInput = styled.input.attrs({
   type: "password",
   name: "password",
@@ -178,7 +156,6 @@ function Signup() {
   const [password, setPassword] = useState("");
   const auth = getAuth();
   auth.languageCode = "ko";
-  const [phoneValue, setPhoneValue] = useState("");
   const navigate = useNavigate();
   const onChange = (event) => {
     const {
@@ -193,11 +170,7 @@ function Signup() {
   };
   const onSubmit = async (event) => {
     event.preventDefault();
-    const data = await createUserWithEmailAndPassword(
-      authService,
-      email,
-      password
-    );
+    await createUserWithEmailAndPassword(authService, email, password);
     authService.signOut();
     navigate("/");
   };

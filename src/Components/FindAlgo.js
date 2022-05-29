@@ -11,7 +11,7 @@ function replaceText(text, caseList) {
   for (let i = 0; i < caseList.length; i++) {
     for (let j = 0; j < caseList[i].length; j++) {
       let myRe = new RegExp(caseList[i][j], 'gi');
-      if (i == caseList.length - 1) {
+      if (i === caseList.length - 1) {
         replacementText = replacementText.replace(myRe, ``);
       } else {
         replacementText = replacementText.replace(myRe, `${i + 1}개`);
@@ -31,7 +31,7 @@ function findProduct(arr, start, tempList) {
       tempList.push({ meunTitle: productName, menuCount: productAmount });
       break;
     } else {
-      if (arr[numberIndex] != ' ') {
+      if (arr[numberIndex] !== ' ') {
         productName = productName.concat(arr[numberIndex].toString());
       }
     }

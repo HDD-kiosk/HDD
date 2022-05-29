@@ -11,27 +11,6 @@ const SectionContext = styled.input.attrs((props) => ({
 const SelectBoxWrap = styled.div``;
 const SectionCategory = styled.select``;
 const MenuImgInputWrap = styled.div``;
-const MenuImgInput = styled.div`
-  margin: 0 8px 0 8px;
-
-  label {
-    cursor: pointer;
-    display: inline-block;
-    font-size: inherit;
-    line-height: normal;
-    vertical-align: middle;
-  }
-  input[type="file"] {
-    position: absolute;
-    width: 0;
-    height: 0;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-  }
-`;
 const Wraper = styled.div`
   display: none;
 `;

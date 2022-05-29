@@ -118,7 +118,7 @@ const Findpw = (props) => {
   console.log(inputValue);
 
   const FindbtnClick = (e) => {
-    if (inputValue != "") {
+    if (inputValue !== "") {
       try {
         const auth = getAuth();
         sendPasswordResetEmail(auth, inputValue);

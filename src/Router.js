@@ -1,19 +1,14 @@
-import React, { useState, Suspense } from "react";
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
-import Home from "../src/views/Home/Home";
+import React, {  Suspense } from "react";
+import { BrowserRouter, Route, Routes} from "react-router-dom";
 import Order from "../src/views/Guest/Order/Order";
-import Payment from "../src/views/Guest/Order/Payment";
 
 import Login from "./views/Login/Login";
 import Signup from "./views/Signup/Signup";
 import Mode from "./views/Mode/Mode";
-import VoiceOrder from "./views/Guest/Order/VoiceOrder";
 import MainGuset from "./views/Guest/Order/MainGuest";
 import Manage from "./views/Manage/Manage";
-import FindAlgo from "./components/FindAlgo"; 
 import Confirmorder from "./views/Confirmorder/Confirmorder";
 
-import firebase, { authService } from "./firebase";
 
 function Router({ isLoggedIn, userObj }) {
   return (

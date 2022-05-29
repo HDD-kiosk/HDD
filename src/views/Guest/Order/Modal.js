@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 
 const modalShow = keyframes`
@@ -112,9 +111,6 @@ const Modal = (props) => {
     img,
     btnEvent1,
     btnEvent2,
-    movePage,
-    w,
-    h,
   } = props;
 
   return (
