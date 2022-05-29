@@ -1,18 +1,14 @@
-import React, { useState, Suspense } from "react";
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
-import Home from "../src/views/Home/Home";
+import React, {  Suspense } from "react";
+import { BrowserRouter, Route, Routes} from "react-router-dom";
 import Order from "../src/views/Guest/Order/Order";
-import Payment from "../src/views/Guest/Order/Payment";
 
 import Login from "./views/Login/Login";
 import Signup from "./views/Signup/Signup";
 import Mode from "./views/Mode/Mode";
-import VoiceOrder from "./views/Guest/Order/VoiceOrder";
 import MainGuset from "./views/Guest/Order/MainGuest";
 import Manage from "./views/Manage/Manage";
 import Confirmorder from "./views/Confirmorder/Confirmorder";
 
-import firebase, { authService } from "./firebase";
 
 function Router({ isLoggedIn, userObj }) {
   return (
@@ -31,8 +27,7 @@ function Router({ isLoggedIn, userObj }) {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/mode" element={<Mode />} />
-          <Route path="/voiceorder" element={<VoiceOrder />} />
-          <Route path="/mainguest" element={<MainGuset />} />
+          <Route path="/mainguest" element={<MainGuset  userObj={userObj}  />} />
           <Route path="/Manage" element={<Manage userObj={userObj} />} />
           <Route path="/confirmorder" element={<Confirmorder />} />
         </Routes>

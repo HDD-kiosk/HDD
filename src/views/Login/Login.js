@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Hddlogo from "../../img/hddLogo.png";
+import Hddlogo from "../../img/hddlogo.png";
 import Loopy from "../../img/loopy.png";
 import Google from "../../img/googlelogo.png";
 import Colors from "../../styles/Colors";
 import { authService } from "../../firebase";
 import Findpw from "./Findpw";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 const Container = styled.body`
@@ -152,17 +152,6 @@ const CheckboxInput = styled.input.attrs({
   cursor: pointer;
 `;
 
-const Caption = styled.div`
-  float: right;
-  position: relative;
-`;
-const CaptionA = styled.a.attrs({ href: "" })`
-  margin-top: 3px;
-  font-size: 14px;
-  color: black;
-  text-decoration: none;
-`;
-
 const BtnArea = styled.div`
   margin-top: 30px;
 `;
@@ -220,11 +209,7 @@ function Login() {
     event.preventDefault();
 
     try {
-      const data = await signInWithEmailAndPassword(
-        authService,
-        email,
-        password
-      );
+      await signInWithEmailAndPassword(authService, email, password);
     } catch (error) {
       alert("로그인 정보가 틀렸습니다.");
     }

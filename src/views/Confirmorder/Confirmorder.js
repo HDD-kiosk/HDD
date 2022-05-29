@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import Hddlogo from "../../img/hddLogo.png";
+import Hddlogo from "../../img/hddlogo.png";
 import Loopy from "../../img/loopy.png";
+import { useLocation } from "react-router";
 
 const Container = styled.div`
   position: relative;
@@ -66,11 +66,12 @@ const Imgloopy = styled.img.attrs((props) => ({
 const Confirmorder = (props) => {
   const [time, setTime] = useState(5);
   const navigate = useNavigate();
+  const { state } = useLocation();
   useEffect(() => {
     setInterval(() => {
       setTime(time - 1);
     }, 1000);
-    if (time == 0) {
+    if (time === 0) {
       navigate("/mainguest");
     }
   }, [time]);
@@ -84,7 +85,9 @@ const Confirmorder = (props) => {
       </TimeArea>
       <TextArea>
         <ConfirmText>주문이 완료되었습니다.</ConfirmText>
-        <OrdernumberText>주문번호 :{props.listNumber} </OrdernumberText>
+        <OrdernumberText>
+          주문번호 :{state ? state : props.listNumber}
+        </OrdernumberText>
       </TextArea>
       <Advertise>
         <Imgloopy></Imgloopy>

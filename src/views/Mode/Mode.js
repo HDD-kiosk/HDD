@@ -1,18 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import Hddlogo from "../../img/hddLogo.png";
+import Hddlogo from "../../img/hddlogo.png";
 import Colors from "../../styles/Colors";
 import { authService } from "../../firebase";
-import { dbService } from "../../firebase";
-import {
-  addDoc,
-  collection,
-  getDocs,
-  query,
-  onSnapshot,
-  orderBy,
-} from "firebase/firestore";
 
 const Container = styled.body`
   position: relative;

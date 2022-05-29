@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import styled from "styled-components";
 import Colors from "../styles/Colors";
 import CalTable from "./CalTable";
@@ -135,7 +135,7 @@ function Navigation({ userObj }) {
         <SetContainer>
           <OrderList userObj={userObj}></OrderList>
         </SetContainer>
-      ) : secondCheck == true ? (
+      ) : secondCheck === true ? (
         <Menu userObj={userObj}></Menu>
       ) : (
         <SetContainer>

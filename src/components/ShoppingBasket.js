@@ -2,17 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Colors from "../styles/Colors";
 import Imgsrc from "../img/shopping_cart.png";
-import { Link } from "react-router-dom";
-import Order from "../views/Guest/Order/Order";
-import { dbService } from "../firebase";
-import {
-  addDoc,
-  collection,
-  getDocs,
-  query,
-  onSnapshot,
-  orderBy,
-} from "firebase/firestore";
+
 const Wrapper = styled.div`
   background-color: ${Colors.MainYellow};
   border: 5px solid ${Colors.MainYellow};
@@ -160,8 +150,8 @@ const ShoppingBasket = (props) => {
 
   useEffect(() => {
     let newArray = [];
-    if (props.orderList != "undefined" && props.orderList != null) {
-      if (clear == false) {
+    if (props.orderList !== "undefined" && props.orderList !== null) {
+      if (clear === false) {
         newArray = addMenu;
         newArray.push(props.orderList);
         setAddMenu(newArray);

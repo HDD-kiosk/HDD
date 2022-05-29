@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Colors from "../../../styles/Colors";
 import cardTypeImg from "../../../img/creditCard.png";
 import cashTypeImg from "../../../img/cash.png";
 import payTypeImg from "../../../img/pay.png";
-import { Link, useNavigate } from "react-router-dom";
 
 const Section = styled.div`
   margin-top: 70px;
