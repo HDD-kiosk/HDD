@@ -155,6 +155,8 @@ const ShoppingBasket = (props) => {
   const [sum, setSum] = useState(0);
   const [index, setIndex] = useState(0);
   const [clear, setClear] = useState(false);
+  const [ordering, setOrdering] = useState(false);
+  //const [orn, setOrn] = useState(0);
 
   useEffect(() => {
     let newArray = [];
@@ -192,30 +194,25 @@ const ShoppingBasket = (props) => {
     setAddMenu([]);
   };
 
-  const addBtnOnClick = async () => {
-    // 모달안에 있는 "추가버튼"
-    //setSig(true);
-    const orderNumber = Math.floor(Math.random() * 9000) + 1000;
-    try {
-      const docRef = await addDoc(collection(dbService, "orders"), {
-        //image: menuImg, //Same useState
-        menuTitle: addMenu,
-        menuPrice: sum,
-        menuCount: count,
-        orderNumber: orderNumber,
-        creatorId: props.userObj.uid,
+  const addBtnOnClick = () => {
+    setOrdering(true);
+    props.ordering(true);
 
-        //menuCategory: category,
-        //createdAt: Date.now(),
-        //creatorId: userObj.uid,
-      });
-    } catch (error) {
-      console.error("Error adding document:", error);
-    }
-    //setNweet("");
-    //const menuObj = { imageUrl: menuImg, name: menuTitle, price: menuPrice };
-    //menuData.push(menuObj);
-    //closeModal();
+    const orderNumber = Math.floor(Math.random() * 9000) + 1000;
+    const list = {
+      menuTitle: addMenu,
+      menuPrice: sum,
+      menuCount: count,
+      orderNumber: orderNumber,
+      creatorId: props.userObj.uid,
+    };
+    //setOrn(orderNumber);
+    props.list(list);
+  };
+
+  const backBtnOnClick = () => {
+    setOrdering(false);
+    props.ordering(false);
   };
 
   return (
@@ -317,26 +314,39 @@ const ShoppingBasket = (props) => {
                 }
               })()}
             </ShoppingItem>
-            <ShoppingResultContainer>
-              <ShoppingResult>
-                <RedText>총 결제 금액</RedText>
-                <RedText>{sum}원</RedText>
-              </ShoppingResult>
-              <ResultBtn onClick={clearOnClick}>
-                <Text>모두 비우기</Text>
-              </ResultBtn>
-              {count ? (
-                <Link to="/payment">
+            {ordering ? (
+              <ShoppingResultContainer>
+                <ShoppingResult>
+                  <RedText>총 결제 금액</RedText>
+                  <RedText>{sum}원</RedText>
+                </ShoppingResult>
+                <ResultBtn onClick={clearOnClick}>
+                  <Text>모두 비우기</Text>
+                </ResultBtn>
+                <ResultNoneBtn onClick={backBtnOnClick}>
+                  <Text>뒤로가기</Text>
+                </ResultNoneBtn>
+              </ShoppingResultContainer>
+            ) : (
+              <ShoppingResultContainer>
+                <ShoppingResult>
+                  <RedText>총 결제 금액</RedText>
+                  <RedText>{sum}원</RedText>
+                </ShoppingResult>
+                <ResultBtn onClick={clearOnClick}>
+                  <Text>모두 비우기</Text>
+                </ResultBtn>
+                {count ? (
                   <ResultBtn onClick={addBtnOnClick}>
                     <Text>주문하기</Text>
                   </ResultBtn>
-                </Link>
-              ) : (
-                <ResultNoneBtn>
-                  <Text>메뉴를 담아주세요</Text>
-                </ResultNoneBtn>
-              )}
-            </ShoppingResultContainer>
+                ) : (
+                  <ResultNoneBtn>
+                    <Text>메뉴를 담아주세요</Text>
+                  </ResultNoneBtn>
+                )}
+              </ShoppingResultContainer>
+            )}
           </GridRightContainer>
         </RightContainer>
       </GridContainer>

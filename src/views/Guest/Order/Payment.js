@@ -1,24 +1,12 @@
-import React from "react";
-import styled, { keyframes } from "styled-components";
+import React, { useState } from "react";
+import styled from "styled-components";
 import Colors from "../../../styles/Colors";
 import hddLogoImg from "../../../img/hddlogo.png";
 import eventPromotionImg from "../../../img/eventPromotion.png";
 import cardTypeImg from "../../../img/creditCard.png";
 import cashTypeImg from "../../../img/cash.png";
 import payTypeImg from "../../../img/pay.png";
-
-const PaymentWrap = styled.div``;
-
-const Header = styled.div``;
-
-const LogoImg = styled.img`
-  width: auto;
-  height: auto;
-  max-width: 50px;
-  max-height: 50px;
-  margin-top: 5px;
-  margin-left: 23px; /*헤더에 로고이미지 다른사람들과맞춰보기*/
-`;
+import { Link, useNavigate } from "react-router-dom";
 
 const Section = styled.div`
   margin-top: 70px;
@@ -58,32 +46,24 @@ const SectionTitle = styled.h2`
   font-weight: bold;
 `;
 
-const Footer = styled.div`
-  text-align: center;
+const Wrapper = styled.div`
+  border: 5px solid ${Colors.MainYellow};
+  width: 50vw;
+  border-radius: 20px;
 `;
 
-const PaymentBannerImg = styled.img`
-  width: 80vw;
-  height: 21vh;
-`;
-
-const cardBtnClick = (e) => {
-  alert(null);
-};
-const cashBtnClick = (e) => {
-  alert(null);
-};
-const payBtnClick = (e) => {
-  alert(null);
-};
-
-function Payment() {
+function Payment({ payComplete }) {
+  const cardBtnClick = (e) => {
+    payComplete(true);
+  };
+  const cashBtnClick = (e) => {
+    payComplete(true);
+  };
+  const payBtnClick = (e) => {
+    payComplete(true);
+  };
   return (
-    <PaymentWrap>
-      <Header>
-        <LogoImg src={hddLogoImg}></LogoImg>
-      </Header>
-
+    <Wrapper>
       <Section>
         <SectionTitle>결제 수단을 선택해주세요.</SectionTitle>
       </Section>
@@ -105,11 +85,7 @@ function Payment() {
           <PaymentTypeTitle>PAY</PaymentTypeTitle>
         </PaymentTypeBtn>
       </Nav>
-
-      <Footer>
-        <PaymentBannerImg src={eventPromotionImg}></PaymentBannerImg>
-      </Footer>
-    </PaymentWrap>
+    </Wrapper>
   );
 }
 

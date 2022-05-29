@@ -157,10 +157,12 @@ function OrderList({ userObj }) {
         id: doc.id,
         ...doc.data(),
       }));
+      console.log(orderArr);
 
       const newOrderArr = orderArr.filter((member) => {
         return member.creatorId == userObj.uid;
       });
+      //console.log(newOrderArr);
 
       setList(newOrderArr);
 

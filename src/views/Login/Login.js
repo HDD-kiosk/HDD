@@ -37,6 +37,7 @@ const SignButton = styled.button`
   color: ${Colors.White};
   margin-top: 10px;
   margin-right: 5px;
+  cursor: pointer;
 `;
 
 const Advertise = styled.div``;
@@ -148,6 +149,7 @@ const CheckboxInput = styled.input.attrs({
   float: left;
   margin-top: 4px;
   margin-right: 5px;
+  cursor: pointer;
 `;
 
 const Caption = styled.div`
@@ -172,6 +174,7 @@ const LoginButton = styled.button.attrs({ type: "submit" })`
   color: ${Colors.White};
   border: none;
   border-radius: 25px;
+  cursor: pointer;
 `;
 const GoogleLoginArea = styled.div`
   text-align: center;
@@ -187,6 +190,7 @@ const GoogleLoginButton = styled.button.attrs({
   margin-top: 20px;
   border: 1px solid black;
   border-radius: 25px;
+  cursor: pointer;
 `;
 const ImgGoogle = styled.img.attrs((props) => ({
   src: Google,

@@ -152,6 +152,8 @@ const AudioRecord = (props) => {
   const onSubmitAudioFile = () => {
     props.sendOrder();
     props.ttsBtnClick("주문이 접수되었습니다.", 1);
+    navigate('/Confirmorder')
+
   };
 
   return (
