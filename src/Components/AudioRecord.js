@@ -1,13 +1,12 @@
-import React, { useState, useCallback } from 'react';
-import Colors from '../styles/Colors';
-import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useCallback } from "react";
+import Colors from "../styles/Colors";
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
 
 const RecAudioBtn = styled.button`
   font-weight: bold;
-  font-family: 'Noto Sans';
+  font-family: "Noto Sans";
   background-color: ${Colors.MainYellow};
   color: white;
   border: none;
@@ -19,7 +18,7 @@ const RecAudioBtn = styled.button`
 `;
 const SubmitAudioFileBtn = styled.button`
   font-weight: bold;
-  font-family: 'Noto Sans';
+  font-family: "Noto Sans";
   background-color: ${Colors.MainYellow};
   color: white;
   border: none;
@@ -36,7 +35,7 @@ const AudioRecord = (props) => {
   const [source, setSource] = useState();
   const [analyser, setAnalyser] = useState();
   const [audioUrl, setAudioUrl] = useState();
-  const [recordText, setRecordText] = useState('주문시작');
+  const [recordText, setRecordText] = useState("주문시작");
   const navigate = useNavigate();
 
   let soundFile = null;
@@ -77,12 +76,12 @@ const AudioRecord = (props) => {
           mediaRecorder.ondataavailable = function(e) {
             setAudioUrl(e.data);
             setOnRec(true);
-            setRecordText('주문시작');
+            setRecordText("주문시작");
             makeAudioFile(e.data);
           };
         } else {
           setOnRec(false);
-          setRecordText('주문완료');
+          setRecordText("주문완료");
         }
       };
     });
@@ -97,8 +96,8 @@ const AudioRecord = (props) => {
       props.setAudioData(e.data);
 
       setOnRec(true);
-      setRecordText('주문시작');
-      console.log('오디오레코드.js e.data: ', e.data);
+      setRecordText("주문시작");
+      console.log("오디오레코드.js e.data: ", e.data);
     };
 
     // 모든 트랙에서 stop()을 호출해 오디오 스트림을 정지
@@ -116,16 +115,16 @@ const AudioRecord = (props) => {
 
   const makeAudioFile = (audioData) => {
     if (audioData) {
-      console.log('URL: ', URL.createObjectURL(audioData)); // 출력된 링크에서 녹음된 오디오 확인 가능
+      console.log("URL: ", URL.createObjectURL(audioData)); // 출력된 링크에서 녹음된 오디오 확인 가능
     } else {
-      console.log('no audioData');
+      console.log("no audioData");
     }
     // File 생성자를 사용해 파일로 변환
-    soundFile = new File([audioData], 'soundBlob', {
+    soundFile = new File([audioData], "soundBlob", {
       lastModified: new Date().getTime(),
-      type: 'audio/wav',
+      type: "audio/wav",
     });
-    console.log('오디오레코드.js에서사운드파일은?:', soundFile);
+    console.log("오디오레코드.js에서사운드파일은?:", soundFile);
 
     let formData = new FormData();
     const config = {
@@ -138,27 +137,21 @@ const AudioRecord = (props) => {
       .then((response) => {
         console.log(response);
 
-        fetch('http://localhost:3001/sttApi/api')
-          .then(function (response) {
-
+        fetch("http://localhost:3001/sttApi/api")
+          .then(function(response) {
             return response.json();
           })
-          .then(function (data) {
-
+          .then(function(data) {
             console.log(data);
             console.log(data.body);
-            props.sttBtnClick(soundFile,data.body);
-
+            props.sttBtnClick(soundFile, data.body);
           });
-
       });
-
   };
 
   const onSubmitAudioFile = () => {
     props.sendOrder();
-    props.ttsBtnClick("잠시만 기달려주세요.",1);
-    //navigate("/나중에알려주세요");
+    props.ttsBtnClick("주문이 접수되었습니다.", 1);
   };
 
   return (

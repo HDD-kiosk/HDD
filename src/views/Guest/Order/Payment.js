@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import Colors from "../../../styles/Colors";
-import hddLogoImg from "../../../img/hddLogo.png";
+import hddLogoImg from "../../../img/hddlogo.png";
 import eventPromotionImg from "../../../img/eventPromotion.png";
 import cardTypeImg from "../../../img/creditCard.png";
 import cashTypeImg from "../../../img/cash.png";

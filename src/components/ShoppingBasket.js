@@ -204,6 +204,7 @@ const ShoppingBasket = (props) => {
         menuCount: count,
         orderNumber: orderNumber,
         creatorId: props.userObj.uid,
+
         //menuCategory: category,
         //createdAt: Date.now(),
         //creatorId: userObj.uid,
