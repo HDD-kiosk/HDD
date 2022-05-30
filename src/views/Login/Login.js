@@ -18,7 +18,7 @@ const TopBar = styled.div``;
 
 const Imglogo = styled.img.attrs((props) => ({
   src: Hddlogo,
-  size: props.size || "50px",
+  size: props.size || "70px",
 }))`
   width: ${(props) => props.size};
   height: ${(props) => props.size};
@@ -26,10 +26,12 @@ const Imglogo = styled.img.attrs((props) => ({
 
 const Sign = styled.div`
   float: right;
+  padding: 7px 0px;
+  display: flex;
 `;
 const SignButton = styled.button`
   width: 200px;
-  height: 30px;
+  height: 40px;
   background: ${Colors.MainYellow};
   font-size: 15px;
   border: none;
@@ -64,7 +66,7 @@ const LoginText = styled.h1`
   font-size: 32px;
   color: black;
   text-align: center;
-  margin-bottom: 10px;
+  margin: 20px 0px 30px 0px;
 `;
 //
 const Form = styled.div``;
@@ -272,11 +274,11 @@ function Login() {
             </BtnArea>
           </RealForm>
         </Form>
-        <GoogleLoginArea>
+        {/* <GoogleLoginArea>
           <GoogleLoginButton onClick={onSocialClick}>
             <ImgGoogle></ImgGoogle> 구글로 계속하기
           </GoogleLoginButton>
-        </GoogleLoginArea>
+        </GoogleLoginArea> */}
       </LoginForm>
       <Findpw open={modalOpen} close={closeModal} setWidth={1000}></Findpw>
     </Container>

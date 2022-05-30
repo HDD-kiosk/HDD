@@ -42,7 +42,7 @@ const Special = styled.div`
 
   color: ${(props) => props.color || Colors.Black};
   background: ${(props) => props.backgroundColor || Colors.White};
-  border: 9px solid #ffcc00;
+  border: 9px solid ${Colors.MainYellow};
   box-sizing: border-box;
   border-radius: 0px 63px 63px 0px;
   transform: rotate(-90deg);
