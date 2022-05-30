@@ -13,7 +13,7 @@ const TopBar = styled.div``;
 
 const Imglogo = styled.img.attrs((props) => ({
   src: Hddlogo,
-  size: props.size || "50px",
+  size: props.size || "70px",
 }))`
   width: ${(props) => props.size};
   height: ${(props) => props.size};
@@ -24,7 +24,7 @@ const Logout = styled.div`
 `;
 const LogoutButton = styled.button`
   width: 200px;
-  height: 30px;
+  height: 40px;
   background: ${Colors.MainYellow};
   font-size: 15px;
   border: none;
@@ -38,20 +38,32 @@ const LogoutButton = styled.button`
 const TitleArea = styled.div`
   text-align: center;
 `;
-const SelectText = styled.h3``;
+const SelectText = styled.h3`
+  font-size: 35px;
+`;
 
 const SelectTextF = styled.h5`
   margin-bottom: 20px;
+  font-size: 20px;
 `;
 
 const LbtnArea = styled.div``;
 
 const RbtnArea = styled.div``;
 
+const WholeBtnArea = styled.div`
+  display: flex;
+  height: 500px;
+  // background-color: red;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0px;
+`;
+
 const Lbtn = styled.button.attrs({
   type: "submit",
 })`
-  position: absolute;
+  // position: absolute;
   width: 300px;
   height: 200px;
   background: ${Colors.MainYellow};
@@ -62,12 +74,13 @@ const Lbtn = styled.button.attrs({
   left: 300px;
   top: 300px;
   cursor: pointer;
+  margin: 0px 100px;
 `;
 
 const Rbtn = styled.button.attrs({
   type: "submit",
 })`
-  position: absolute;
+  // position: absolute;
   width: 300px;
   height: 200px;
   background: ${Colors.MainYellow};
@@ -81,8 +94,6 @@ const Rbtn = styled.button.attrs({
 `;
 
 function Mode({ userObj }) {
-  const [nweet, setNweet] = useState(""); //
-  const [nweets, setNweets] = useState([]); //
   const onLogOutClick = () => authService.signOut();
   //새로추가 함수
 
@@ -97,22 +108,25 @@ function Mode({ userObj }) {
       <TitleArea>
         <SelectText>선택해주세요</SelectText>
       </TitleArea>
-      <LbtnArea>
+
+      {/* <LbtnArea> */}
+      <WholeBtnArea>
         <Link to="/mainguest">
           <Lbtn>
             <SelectTextF>손님이에요!</SelectTextF>
             <SelectText>주문하기</SelectText>
           </Lbtn>
         </Link>
-      </LbtnArea>
-      <RbtnArea>
+        {/* </LbtnArea> */}
+        {/* <RbtnArea> */}
         <Link to="/manage">
           <Rbtn>
             <SelectTextF>가게 사장님이에요!</SelectTextF>
             <SelectText>매장관리</SelectText>
           </Rbtn>
         </Link>
-      </RbtnArea>
+        {/* </RbtnArea> */}
+      </WholeBtnArea>
     </Container>
   );
 }

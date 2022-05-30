@@ -12,7 +12,7 @@ const TopBar = styled.div``;
 
 const Imglogo = styled.img.attrs((props) => ({
   src: Hddlogo,
-  size: props.size || "50px",
+  size: props.size || "70px",
 }))`
   width: ${(props) => props.size};
   height: ${(props) => props.size};

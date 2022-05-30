@@ -41,10 +41,10 @@ const Section = styled.div`
   width: ${(props) => props.width};
   margin: 0 auto;
   border-radius: 0.3rem;
-  background-color: #ffffff; /* hdd로가서 글로벌로바꾸기*/
+  background-color: ${Colors.White};
   animation: ${modalShow} 0.3s;
   overflow: hidden;
-  border: 2px solid #ffcc00; /* hdd로가서 글로벌로바꾸기*/
+  border: 2px solid ${Colors.MainYellow};
 `;
 
 const TopBar = styled.div``;

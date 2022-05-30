@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
+import Colors from '../../../styles/Colors';
 
 const modalShow = keyframes`
     from{
@@ -36,15 +37,15 @@ const Section = styled.div`
   width: ${(props) => props.sectionWidth}px;
   margin: 0 auto;
   border-radius: 0.3rem;
-  background-color: #ffffff; /* hdd로가서 글로벌로바꾸기*/
+  background-color: ${Colors.White};
   animation: ${modalShow} 0.3s;
   overflow: hidden;
-  border: 6px solid #ffcc00; /* hdd로가서 글로벌로바꾸기*/
+  border: 6px solid ${Colors.MainYellow};
 `;
 const Header = styled.div`
   position: relative;
   padding: 16px 64px 16px 16px;
-  background-color: #ffffff; /* hdd로가서 글로벌로바꾸기*/
+  background-color: ${Colors.White};
   font-weight: 700;
   text-align: center;
   padding-left: 50px;
@@ -79,8 +80,8 @@ const Footer = styled.div`
 `;
 const FirstBtn = styled.button`
   font-weight: bold;
-  font-family: "Noto Sans";
-  background-color: #ffcc00; /* hdd로가서 글로벌로바꾸기*/
+  font-family: 'Noto Sans';
+  background-color: ${Colors.MainYellow};
   color: white;
   border: none;
   border-radius: 8px;
@@ -91,8 +92,8 @@ const FirstBtn = styled.button`
 `;
 const SecondBtn = styled.button`
   font-weight: bold;
-  font-family: "Noto Sans";
-  background-color: #ffcc00; /* hdd로가서 글로벌로바꾸기*/
+  font-family: 'Noto Sans';
+  background-color: ${Colors.MainYellow};
   color: white;
   border: none;
   border-radius: 8px;
