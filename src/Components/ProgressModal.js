@@ -1,6 +1,5 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
-import Colors from "../styles/Colors";
 
 const modalShow = keyframes`
     from{
@@ -37,15 +36,15 @@ const Section = styled.div`
   width: ${(props) => props.sectionWidth}px;
   margin: 0 auto;
   border-radius: 0.3rem;
-  background-color: ${Colors.White};
+  background-color: #ffffff; /* hdd로가서 글로벌로바꾸기*/
   animation: ${modalShow} 0.3s;
   overflow: hidden;
-  border: 6px solid ${Colors.MainYellow};
+  border: 6px solid #ffcc00; /* hdd로가서 글로벌로바꾸기*/
 `;
 const Header = styled.div`
   position: relative;
   padding: 16px 64px 16px 16px;
-  background-color: ${Colors.White};
+  background-color: #ffffff; /* hdd로가서 글로벌로바꾸기*/
   font-weight: 700;
   text-align: center;
   padding-left: 50px;

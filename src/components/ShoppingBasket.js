@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Colors from "../styles/Colors";
-import Imgsrc from "../img/shopping-cart.png";
+import Imgsrc from "../img/shopping_cart.png";
 
 const Wrapper = styled.div`
   background-color: ${Colors.MainYellow};
@@ -86,7 +86,7 @@ const RedText = styled(Text)`
 
 const ShoppingImg = styled.img`
   object-fit: cover;
-  width: 75px;
+  width: 60%;
   margin-bottom: 15px;
 `;
 
