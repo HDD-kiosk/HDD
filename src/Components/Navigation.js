@@ -4,7 +4,6 @@ import Colors from "../styles/Colors";
 import CalTable from "./CalTable";
 import Menu from "./Menu";
 import OrderList from "./OrderList";
-
 const FirstNav = styled.div`
   cursor: pointer;
   position: absolute;
@@ -20,7 +19,6 @@ const FirstNav = styled.div`
   border: 9px solid ${Colors.MainYellow};
   box-sizing: border-box;
   border-radius: 0px 63px 63px 0px;
-  padding-left: 6px;
 `;
 /*const FirstSpan = styled.p`
 display:inline-block;
@@ -113,14 +111,16 @@ function Navigation({ userObj }) {
         color={color.firstTextColor}
         onClick={onFirstclick}
       >
-        주문<br/>확인
+        주문<br></br>
+        확인
       </FirstNav>
       <SecondNav
         backgroundColor={color.secondColor}
         color={color.secondTextColor}
         onClick={onSecondclick}
       >
-        메뉴<br/>관리
+        메뉴<br></br>
+        관리
       </SecondNav>
       <ThirdNav
         backgroundColor={color.thirdColor}

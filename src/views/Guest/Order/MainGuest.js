@@ -25,8 +25,8 @@ const Nav = styled.div`
 `;
 
 const EatingSpaceTypeBtn = styled.div`
-  width: 17rem;
-  height: 10rem;
+  width: 15rem;
+  height: 9rem;
   border-radius: 11px;
   background-color: ${Colors.MainYellow};
 
@@ -40,20 +40,17 @@ const EatingSpaceTypeBtn = styled.div`
 
 const EatingSpaceTypeImg = styled.img`
   margin-top: 1rem;
-  margin-bottom: 0.5rem;
-  width: 90px;
-  height: 90px;
 `;
 
 const TakeoutImg = styled.img`
   margin-top: 1.1rem;
   margin-bottom: 0.5rem;
-  width: 90px;
-  height: 90px;
+  width: 3.8vw;
+  height: 8.8vh;
 `;
 
 const EatingSpaceTypeTitle = styled.h3`
-  font-family: 'Noto Sans';
+  font-family: 'Noto Sans'; /*나중 글로벌스타일 확인*/
   font-size: 1.1rem;
   font-weight: bold;
   color: ${Colors.White};
