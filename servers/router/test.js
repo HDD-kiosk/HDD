@@ -12,15 +12,6 @@ const request = require("request");
 const clientId = "5dpql0ebdi";
 const clientSecret = "BUEsuC0pd1keyIrw8it3KQzYwhnamuAx5qwaoc7R";
 
-let text = "";
-
-// router.post("/", multipartMiddleware, function(req, res) {
-//   audioFile = req.files;
-//     // stt("Kor", audioFile);
-//   res.json({
-//     state: "Ok",
-//   });
-// });
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -34,11 +25,13 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post("/", upload.single("file"), (req, res) => {
-  stt("Kor", "../servers/uploads/temp.wav");
+  // stt("Kor", "../servers/uploads/temp.wav");
+
+ 
   res.status(201).send({
     message: "audio 저장성공",
     fileInfo: req.file,
-    text: text,
+
   });
 });
 

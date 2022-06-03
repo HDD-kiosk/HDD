@@ -1,12 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 
 const modalShow = keyframes`
     from{
         opacity: 0;
         margin-top: -50px;
-    }cc
+    }
     to{
         opacity: 1;
         margin-top: 0;
@@ -32,26 +31,23 @@ const OpenModal = styled.div`
   align-items: center;
   animation: ${modalBgShow} 0.3s;
   justify-content: center;
-
-  
 `;
 const Section = styled.div`
-  width: ${props=>props.sectionWidth}px;
-  margin:0 auto;
+  width: ${(props) => props.sectionWidth}px;
+  margin: 0 auto;
   border-radius: 0.3rem;
-  background-color: #FFFFFF;   /* hdd로가서 글로벌로바꾸기*/
+  background-color: #ffffff; /* hdd로가서 글로벌로바꾸기*/
   animation: ${modalShow} 0.3s;
   overflow: hidden;
-  border: 6px solid #FFCC00;    /* hdd로가서 글로벌로바꾸기*/
+  border: 6px solid #ffcc00; /* hdd로가서 글로벌로바꾸기*/
 `;
 const Header = styled.div`
   position: relative;
   padding: 16px 64px 16px 16px;
-  background-color: #FFFFFF; /* hdd로가서 글로벌로바꾸기*/
+  background-color: #ffffff; /* hdd로가서 글로벌로바꾸기*/
   font-weight: 700;
   text-align: center;
   padding-left: 50px;
-
 `;
 const CloseBtn = styled.button`
   outline: none;
@@ -68,37 +64,31 @@ const CloseBtn = styled.button`
   background-color: transparent;
 `;
 const Main = styled.div`
-  font-size: 21px; 
+  font-size: 21px;
   font-weight: bold;
   padding: 16px;
   text-align: center;
 `;
-const HeaderImg = styled.img`
-
-`;
+const HeaderImg = styled.img``;
 const Footer = styled.div`
   padding: 12px 16px;
   text-align: center;
 `;
 
-const ProgressModal = (props) => { 
-  const { open, close, setWidth, img,  } = props;
+const ProgressModal = (props) => {
+  const { open, close, setWidth, img } = props;
 
-  return (        
+  return (
     <>
       {open ? (
         <OpenModal>
-          <Section sectionWidth= {setWidth}>
+          <Section sectionWidth={setWidth}>
             <Header>
               <CloseBtn onClick={close}>&times;</CloseBtn>
-              <HeaderImg src={img} ></HeaderImg>
+              <HeaderImg src={img}></HeaderImg>
             </Header>
-            <Main>
-              {props.children[0]}
-            </Main>
-            <Footer>
-            {props.children[1]}
-            </Footer>
+            <Main>{props.children[0]}</Main>
+            <Footer>{props.children[1]}</Footer>
           </Section>
         </OpenModal>
       ) : null}

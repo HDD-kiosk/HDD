@@ -7,12 +7,10 @@ import InputMenu from "./InputMenu";
 import {
   addDoc,
   collection,
-  getDocs,
   query,
   onSnapshot,
   doc,
   deleteDoc,
-  orderBy,
 } from "firebase/firestore";
 
 const AddMenu = styled.button`
@@ -143,7 +141,7 @@ const MenuBox = ({ imageUrl, name, price, menuData }) => {
     console.log(name);
     console.log(menuData);
     const newList = menuData.filter((member) => {
-      return member.menuTitle == name;
+      return member.menuTitle === name;
     });
     const docRef = doc(dbService, "menus", newList[0].id);
 
@@ -193,38 +191,38 @@ function Menu({ userObj }) {
         ...doc.data(),
       }));
       newMenuArr = menuArr.filter((member) => {
-        return member.creatorId == userObj.uid;
+        return member.creatorId === userObj.uid;
       });
       setMenuUserData(newMenuArr);
 
       switch (index) {
         case 1:
           const specialMenu = newMenuArr.filter((member) => {
-            return member.menuCategory == "스페셜할인팩";
+            return member.menuCategory === "스페셜할인팩";
           });
           setMenuData(specialMenu);
           break;
         case 2:
           const wapperMenu = newMenuArr.filter((member) => {
-            return member.menuCategory == "와퍼";
+            return member.menuCategory === "와퍼";
           });
           setMenuData(wapperMenu);
           break;
         case 3:
           const juniorMenu = newMenuArr.filter((member) => {
-            return member.menuCategory == "주니어";
+            return member.menuCategory === "주니어";
           });
           setMenuData(juniorMenu);
           break;
         case 4:
           const sideMenu = newMenuArr.filter((member) => {
-            return member.menuCategory == "사이드";
+            return member.menuCategory === "사이드";
           });
           setMenuData(sideMenu);
           break;
         case 5:
           const dessertMenu = newMenuArr.filter((member) => {
-            return member.menuCategory == "디저트";
+            return member.menuCategory === "디저트";
           });
           setMenuData(dessertMenu);
           break;
@@ -285,7 +283,7 @@ function Menu({ userObj }) {
     });
     setIndex(1);
     const specialMenu = menuUserData.filter((member) => {
-      return member.menuCategory == "스페셜할인팩";
+      return member.menuCategory === "스페셜할인팩";
     });
     setMenuData(specialMenu);
   };
@@ -305,7 +303,7 @@ function Menu({ userObj }) {
     });
     setIndex(2);
     const wapperMenu = menuUserData.filter((member) => {
-      return member.menuCategory == "와퍼";
+      return member.menuCategory === "와퍼";
     });
     setMenuData(wapperMenu);
   };
@@ -325,7 +323,7 @@ function Menu({ userObj }) {
     });
     setIndex(3);
     const juniorMenu = menuUserData.filter((member) => {
-      return member.menuCategory == "주니어";
+      return member.menuCategory === "주니어";
     });
     setMenuData(juniorMenu);
   };
@@ -345,7 +343,7 @@ function Menu({ userObj }) {
     });
     setIndex(4);
     const sideMenu = menuUserData.filter((member) => {
-      return member.menuCategory == "사이드";
+      return member.menuCategory === "사이드";
     });
     setMenuData(sideMenu);
   };
@@ -364,7 +362,7 @@ function Menu({ userObj }) {
       desserttextColor: Colors.White,
     });
     const dessertMenu = menuUserData.filter((member) => {
-      return member.menuCategory == "디저트";
+      return member.menuCategory === "디저트";
     });
     setMenuData(dessertMenu);
     setIndex(5);
