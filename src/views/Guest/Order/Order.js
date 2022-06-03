@@ -30,7 +30,7 @@ const Special = styled.div`
   display: flex;
   align-items: center;
   position: absolute;
-  left: 18.12%;
+  left: 20.12%;
   right: 2.49%;
   top: 20.71%;
   bottom: 12.55%;
